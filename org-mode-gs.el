@@ -46,7 +46,8 @@
 (setq org-src-fontify-natively t)
 
 ; display images inline
-(org-display-inline-images t)
+(if (equal (window-system) 'x)
+    (org-display-inline-images t))
 
 
 ; Spell checking
