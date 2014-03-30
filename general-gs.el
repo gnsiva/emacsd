@@ -56,8 +56,8 @@
 
 ;;;;;;;;;;;;;;;;
 ;; Ares's ubuntu VM (Lettie)
-(if (equal system-name "lettie")
-    (set-frame-font "Ubuntu Mono-12" nil t))
+(if (equal system-name "localhost")
+    (set-frame-font "Ubuntu Mono-11" nil t))
 
 
 ;;;;;;;;;;;;;;;;

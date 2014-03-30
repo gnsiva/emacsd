@@ -54,8 +54,11 @@
 (setq ispell-program-name "aspell"
   ispell-extra-args '("--sug-mode=ultra"))
 
-(add-hook 'org-mode-hook
-  (lambda()
-    (flyspell-mode 1)))
+;;;;;;;;;;;;;;;;
+;; ;; automatically add spell check to org-mode files. Turned it off cos it was annoying
+;; ;; just switch it on when necessary M-x flyspell-mode
+;; (add-hook 'org-mode-hook
+;;   (lambda()
+;;     (flyspell-mode 1)))
 
 (setq flyspell-issue-message-flag nil)
