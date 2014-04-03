@@ -15,6 +15,7 @@
 \\usepackage{lmodern}
 \\usepackage[margin=2.5cm]{geometry}
 \\usepackage{setspace}
+\\usepackage{graphicx}
 \\onehalfspacing
 "
                ("\\section{%s}" . "\\section*{%s}")

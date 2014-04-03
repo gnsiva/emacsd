@@ -38,7 +38,8 @@
 
 ; Different directory for chromebook
 (if (equal system-name "localhost")
-    (setq yas-snippet-dirs '("~/Usb/yasnippets")))
+    (setq yas-snippet-dirs '("~/Usb/yasnippets"
+			     "~/yasnippets")))
 
 (yas-global-mode 1)
 

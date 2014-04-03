@@ -37,7 +37,7 @@
 (global-set-key [f5] 'revert-buffer-no-confirm)
 
 ; Toggle line wrap
-(global-set-key [f6] 'visual-line-mode)
+(global-set-key [f6] 'athena)
 
 ; super key in ubuntu on the mac 
 (when (string= system-name "eos")
