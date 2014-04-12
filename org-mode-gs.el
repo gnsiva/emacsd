@@ -24,6 +24,21 @@
                ("\\paragraph{%s}" . "\\paragraph*{%s}")
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
  
+(add-to-list 'org-export-latex-classes
+             '("acs"
+"\\documentclass[journal=ancham,manuscript=article,layout=twocolumn]{achemso}
+\\usepackage{lmodern}
+\\usepackage{setspace}
+\\usepackage{graphicx}
+"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+
+
 
 ; You might need to install pygments in os x for this to work (easy_install has it)
 ; pip has it too

@@ -3,8 +3,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Files to automatically load into a buffer
 
-(find-file "~/Dropbox/musings/org_mode_notes/code_notes.org")
-(find-file "~/Dropbox/musings/org_mode_notes/lab_book.org")
+;; ;; Commented out cos files are in a different place now
+;; (find-file "~/Dropbox/musings/org_mode_notes/code_notes.org")
+;; (find-file "~/Dropbox/musings/org_mode_notes/lab_book.org")
 (find-file "~/.emacs.d/init.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
