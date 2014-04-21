@@ -6,7 +6,7 @@
 ;; ;; Commented out cos files are in a different place now
 ;; (find-file "~/Dropbox/musings/org_mode_notes/code_notes.org")
 ;; (find-file "~/Dropbox/musings/org_mode_notes/lab_book.org")
-(find-file "~/.emacs.d/init.el")
+;; (find-file "~/.emacs.d/init.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; General
@@ -23,9 +23,6 @@
 
 ; locate
 (require 'locate)
-
-;; Remember open buffers when reopening
-(desktop-save-mode 1)
 
 ;; Put backup files in a central place (stops <fn>~ files in current dir)
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup")))
@@ -44,7 +41,7 @@
 
 
 ; super key in ubuntu on the mac 
-(when (string= system-name "eos")
+(when (string= system-name "lettie")
   (setq x-super-keysym 'meta))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -60,24 +57,9 @@
 (if (equal system-name "localhost")
     (set-frame-font "Ubuntu Mono-11" nil t))
 
-
-;;;;;;;;;;;;;;;;
-;; Fixing PATH and PYTHONPATH ISSUES
-;; See here
-;; https://github.com/purcell/exec-path-from-shell
-;; http://stackoverflow.com/questions/6411121/how-to-make-emacs-to-use-my-bashrc-file
-;; Works in ubuntu 13.04
-(setq to-install
-      '(exec-path-from-shell)) 
-; Comment out for offline 
-
-(exec-path-from-shell-initialize)
-(exec-path-from-shell-copy-env "PYTHONPATH")
-(exec-path-from-shell-copy-env "PATH")
-(exec-path-from-shell-copy-env "LD_LIBRARY_PATH")
-;; (when (string= system-name "anake")
-;;   (exec-path-from-shell-copy-env "LD_LIBRARY_PATH"))
-
+; Lettie (macbook air)
+(if (equal system-name "lettie")
+    (set-frame-font "Ubuntu Mono-11" nil t))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -112,36 +94,3 @@
 ; Auto start
 ;; (if (file-exists-p "~/.revive.el")
 ;;   (resume))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
