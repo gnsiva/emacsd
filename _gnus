@@ -1,0 +1,16 @@
+(setq gnus-select-method
+      '(nnimap "gmail"
+	       (nnimap-address "imap.gmail.com")
+	       (nnimap-server-port 993)
+	       (nnimap-stream ssl)))
+
+(setq message-send-mail-function 'smtpmail-send-it
+      smptmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
+      smptmail-auth-credentials '(("smtp.gmail.com" 587
+				  "g.n.sivalingam@gmail.com" nil))
+      smptmail-default-smtp-server "smtp.gmail.com"
+      smptmail-smtp-server "smtp.gmail.com"
+      smptmail-smtp-service 587
+      gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]")
+
+

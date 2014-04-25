@@ -1,0 +1,4 @@
+machine smtp.gmail.com login g.n.sivalingam@gmail.com port 25 password sjcdkjqsefljomuf
+machine imap.gmail.com login g.n.sivalingam@gmail.com password sjcdkjqsefljomuf port 993
+machine smtp.gmail.com login g.n.sivalingam@gmail.com password sjcdkjqsefljomuf port 587
+
