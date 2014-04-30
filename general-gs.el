@@ -13,6 +13,7 @@
 (setq visible-bell t)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
+(transient-mark-mode 1)
 
 ; ido
 (ido-mode t)
@@ -26,8 +27,6 @@
 
 ;; Put backup files in a central place (stops <fn>~ files in current dir)
 (setq backup-directory-alist '(("." . "~/.emacs.d/backup")))
-
-(transient-mark-mode 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Invert colours in windowed
@@ -80,7 +79,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;
-; revive.el 
+; revive.el  - saves and resumes your window layout
 ; save open windows
 (autoload 'save-current-configuration "revive" "Save status" t)
 (autoload 'resume "revive" "Resume Emacs" t)

@@ -17,18 +17,15 @@
 (setq to-install
       '(python-mode cl-lib yasnippet jedi auto-complete autopair find-file-in-repository exec-path-from-shell magit))
 
-; Comment out for offline
 (mapc 'install-if-needed to-install)
 
 (require 'magit)
 (global-set-key "\C-xg" 'magit-status)
 (global-set-key [f7] 'find-file-in-repository)
 
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; These parts should be moved
-(require 'flymake)
+;(require 'flymake)
 
 ;;;;;;;;;;;;;;;;
 ; yasnippet
@@ -46,7 +43,6 @@
 ; Stop yas completion in term/ansi-term and fix tab complete functionality
 (add-hook 'term-mode-hook (lambda ()
                    (yas-minor-mode -1)))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Tramp
@@ -66,12 +62,5 @@
  ac-override-local-map nil
  ac-use-menu-map t
  ac-candidate-limit 20)
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Not this bit though!
-(mapc 'install-if-needed to-install)
-
 
 

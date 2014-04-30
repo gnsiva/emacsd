@@ -1,0 +1,43 @@
+Emacs Tutorial for non-programmers
+
+* Emacs general
+
+** Movement
+|-----------------+-----------+---------------------------|
+| Key combination | Pneumonic | Function                  |
+|-----------------+-----------+---------------------------|
+| C-f             | forward   | Move cursor to the right  |
+| C-b             | back      | Move cursor to the left   |
+| C-p             | previous  | Move cursor up one line   |
+| C-n             | next      | Move cursor down one line |
+|-----------------+-----------+---------------------------|
+** Copying and pasting
+
+|-----------------+-----------+----------------------------------------------|
+| Key combination | Pneumonic | Function                                     |
+|-----------------+-----------+----------------------------------------------|
+| C-k             | kill      | Selects the whole line and cuts it           |
+| C-y             | yank      | Pastes what ever is in your kill ring        |
+| M-y             |           | Cycles through copy history (do after C-y)   |
+| C-SPC           |           | Start highlighting region                    |
+| C-w             |           | Cuts selected region (and adds to kill ring) |
+| M-w             |           | Copy selected region                         |
+| M-h             | highlight | Highlights current paragraph                 |
+|-----------------+-----------+----------------------------------------------|
+
+
+** Find/search and replace
+|-----------------+----------------+---------------------------------------------|
+| Key combination | Pneumonic      | Function                                    |
+|-----------------+----------------+---------------------------------------------|
+| C-s             | search         | Control+f equivalent, cancel using C-g      |
+| C-r             | reverse search | Control+f equiv. backwards through the file |
+|-----------------+----------------+---------------------------------------------|
+
+*** More advanced
+|-----------------+--------------------+-------------------------------------------|
+| Key combination | Full function name | Function                                  |
+|-----------------+--------------------+-------------------------------------------|
+| M-x rep         | (replace-string)   | Replace all occurences (in selected area) |
+|                 |                    |                                           |
+|-----------------+--------------------+-------------------------------------------|

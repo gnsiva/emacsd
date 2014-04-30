@@ -36,12 +36,12 @@
     (interactive) (revert-buffer t t))
 (global-set-key [f5] 'revert-buffer-no-confirm)
 
-; Toggle line wrap
 (global-set-key [f6] 'athena)
 
-; super key in ubuntu on the mac 
-(when (string= system-name "eos")
+; On Mac use cmd key as meta (as in M-x)
+(when (string= system-type "darwin")
   (setq x-super-keysym 'meta))
+
 
 ; org-mode
 (global-set-key "\C-cl" 'org-store-link)
@@ -61,15 +61,15 @@
       mac-option-modifier 'none)
 ; separate tutorial [[http://mcclanahoochie.com/blog/2011/08/remapping-macbook-pro-keys-for-emacs/][separate tutorial]] 
 
+; Go to a specific line number in the file
 (global-set-key "\C-x\C-g" 'goto-line)
 
-; Comment and uncomment regions
+; Comment and uncomment selected regions
 (global-set-key (kbd "C-.") 'comment-region)
 (global-set-key (kbd "C-,") 'uncomment-region)
 
 
 ;; Shortcuts/Aliases 
-
 (defalias 'eb 'eval-buffer)
 (defalias 'er 'eval-region)
 (defalias 'rb 'revert-buffer)
