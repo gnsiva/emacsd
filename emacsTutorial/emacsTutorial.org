@@ -1,7 +1,6 @@
 Emacs Tutorial for non-programmers
 
 * Emacs general
-
 ** Movement
 |-----------------+-----------+---------------------------|
 | Key combination | Pneumonic | Function                  |
@@ -25,7 +24,6 @@ Emacs Tutorial for non-programmers
 | M-h             | highlight | Highlights current paragraph                 |
 |-----------------+-----------+----------------------------------------------|
 
-
 ** Find/search and replace
 |-----------------+----------------+---------------------------------------------|
 | Key combination | Pneumonic      | Function                                    |
@@ -41,3 +39,49 @@ Emacs Tutorial for non-programmers
 | M-x rep         | (replace-string)   | Replace all occurences (in selected area) |
 |                 |                    |                                           |
 |-----------------+--------------------+-------------------------------------------|
+** Customisation 
+All customisation can be coded directly into your configuration file (.emacs.d/init.el). 
+BUT! you don't have to do this. If you use M-x customize, you can customise loads of things about the editor including fonts. You can also change colour themes with M-x customize-themes.
+
+There is a really good tutorial for this on [[https://www.youtube.com/watch?v=mMcc0IF1hV0&list=PLxj9UAX4Em-IiOfvF2Qs742LxEK4owSkr][YouTube]].
+
+** Installing things with the package manager
+The package manager makes it really easy to install additional functionality to emacs. Type M-x list-packages to see what is available. You can then search for packages which you want to install with C-s (install by pressing enter).
+
+To check if you have anything which needs upgrading press 'U', if it finds anything you can press 'x'.
+
+
+** Dired mode - looking around your filesystem (folders)
++ Start with C-x d
++ Press enter to go into a directory
++ Press 'd' to make something for deletion and 'x' to actually delete
++ Pressing '+' creates a new directory
++ C-x C-f can be used like normal to create a file in the directory you are currently looking in.
++ Pressing 'g' refreshes the buffer (after a new file has been created in there for example)
++ Pressing '!' on a file allows you to run a shell command on it like 'wc -w' for word count
++ 'C' copies a file!
++ 'm' marks a file, this allows you to do the same thing to many files (such as '!' then 'firefox')
+  + 'u' unmarks a file
+  + 'U' unmarks all files
+  + 't' does invert selection (if nothing is selected it selects everything)
+  + '* /' marks all directories
++ 'A' searches all marked files using a regular expression
+  + M-, moves to the next search result (even if it is in a different file)
++ 'R' renames a file
++ 's' changes sorting mode from filename to time modified
++ C-x C-q allows you to edit the dired buffer like a regular one, allowing for renames and stuff
+  + C-c C-c to apply the changes you have made
+
+To find out more do C-? i, go to the emacs manual and search for dired. 
+Also you can customise it with 'M-x customize-group dired'.
+** Buffer list mode - allowing you to manage (basically close) buffers you aren't using
+Spoiler alert, its a lot like dired mode.
+- Start with C-x C-b
+- 'd' - mark buffer for closing, 'x' to actually close
+
+M-x clean-buffer-list - closes your buffers you haven't used in a while.
+** Finding files
+C-x C-f starts the ido-mode file find program in the bar at the bottom. To cycle through the results use C-s or C-r. You can type partial names of files in order to select them. For example if you had a file called 'reallylongfilenameisntit.txt' you could just type tit.txt, and it would be selected!
+
+If you are trying to create a new file with C-x C-f and it won't let you because it thinks you are trying to select another existing file, press C-f to go into the normal find-file mode.
+
