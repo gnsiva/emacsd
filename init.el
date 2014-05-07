@@ -34,3 +34,4 @@
  ;; If there is more than one, they won't work right.
  )
 
+;; (setenv "PYTHONPATH" "~/Challenger/python; ~/Amphitrite/")

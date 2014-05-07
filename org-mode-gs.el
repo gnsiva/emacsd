@@ -17,6 +17,8 @@
 \\usepackage{setspace}
 \\usepackage{graphicx}
 \\onehalfspacing
+\\usepackage{etoolbox}
+\\AtBeginEnvironment{minted}{\\singlespacing \\fontsize{8}{8}\\selectfont}
 "
                ("\\section{%s}" . "\\section*{%s}")
                ("\\subsection{%s}" . "\\subsection*{%s}")
@@ -42,8 +44,12 @@
 
 ; You might need to install pygments in os x for this to work (easy_install has it)
 ; pip has it too
+(require 'org-latex)
 (setq org-export-latex-listings 'minted)
 (add-to-list 'org-export-latex-packages-alist '("" "minted"))
+; syntax colouring for html at least (and in the buffer)
+(setq org-src-fontify-natively t)
+
 
 
 ;; Programming languages
@@ -55,11 +61,13 @@
    ;; (C . t)
    ;; (js . t)))
 
+;; Stop org-mode asking for confirmation when executing python code block
+(defun my-org-confirm-babel-evaluate (lang body)
+  (not (string= lang "python")))  ; don't ask for python
+(setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+
 ; (automatically starts files ending in .org in org mode)
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
-
-; syntax colouring for html at least (and in the buffer)
-(setq org-src-fontify-natively t)
 
 ; display images inline
 (if (equal (window-system) 'x)
