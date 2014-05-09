@@ -2,6 +2,27 @@
 (require 'org-install)
 (require 'org-html)
 
+;; ================================================================
+;; Running code inside org mode
+
+(require 'ob-tangle)
+
+;; Programming languages
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)
+   (js . t)
+   (C . t)))
+   ;; (python . t)
+   ;; (C . t)
+   ;; (js . t)))
+
+;; Stop org-mode asking for confirmation when executing python code block
+(defun my-org-confirm-babel-evaluate (lang body)
+  (not (string= lang "python")) ; don't ask for python
+  (not (string= lang "C")))  
+(setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+
 
 ;; ================================================================
 ;; Org export
@@ -21,19 +42,6 @@
 ; Don't execute all the code blocks when exporting the document
 (setq org-export-babel-evaluate nil)
 
-;; Programming languages
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((python . t)
-   (js . t)))
-   ;; (python . t)
-   ;; (C . t)
-   ;; (js . t)))
-
-;; Stop org-mode asking for confirmation when executing python code block
-(defun my-org-confirm-babel-evaluate (lang body)
-  (not (string= lang "python")))  ; don't ask for python
-(setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 
 ; See part three of this:
 ; http://orgmode.org/worg/org-tutorials/org-latex-export.html
