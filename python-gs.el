@@ -26,9 +26,11 @@
 	  (lambda ()
 	    (jedi:setup)
 	    (jedi:ac-setup)
-            (local-set-key "\C-cd" 'jedi:show-doc)
+            (local-set-key (kbd "M-?") 'jedi:show-doc)
             (local-set-key (kbd "A-SPC") 'jedi:complete)
-            (local-set-key (kbd "M-.") 'jedi:goto-definition)))
+            (local-set-key (kbd "M-.") 'jedi:goto-definition)
+            (local-set-key (kbd "M-,") 'jedi:goto-definition-pop-marker)
+            (local-set-key (kbd "M-/") 'jedi:get-in-function-call)))
 
 ;; Flymake settings for Python
 (defun flymake-python-init ()

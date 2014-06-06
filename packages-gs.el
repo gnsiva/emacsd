@@ -31,7 +31,7 @@
 ; yasnippet
 (require 'yasnippet)
 (setq yas-snippet-dirs 
-      '("~/Dropbox/musings/config_files/yasnippets"))
+      '("~/yasnippets" "~/Dropbox/musings/config_files/yasnippets"))
 
 ; Different directory for chromebook
 (if (equal system-name "localhost")

@@ -35,3 +35,39 @@
  )
 
 ;; (setenv "PYTHONPATH" "~/Challenger/python; ~/Amphitrite/")
+
+
+
+;; ================================================================
+;; Extra stuff from youtube presentation which should be moved
+;; (ac-config-default)
+(setq ac-show-menu-immediately-on-auto-complete t)
+
+;; projectile (need to add install bit)
+;; (require 'projectile)
+;; (projectile-global-mode)
+
+;; Jedi setup
+;; You only need to install pip and virtualenv to use this and it installs jedi and epc for you
+;; M-x jedi:install-server
+; also had this line which I don't know the purpose of
+; it adds jedi to the autocomplete sources list, but I think I already have something for that
+;; (add-to-list 'ac-sources 'ac-source-jedi-direct)
+
+;; add jedi:server-args for showing what your projects are
+; C-? v jedi:server-args tells you how to set this up
+;; finding a project --sys-path (use this to tell it where your projects are)
+
+;; autofind a project root
+;; (defvar jedi-config:vcs-root-sentinel ".git")
+
+; incomplete
+;; (defun get-project-root (buf repo-type init-file))
+
+(setq jedi:complete-on-dot t)
+
+;; should look at this to get this whole thing to work properly
+;; https://github.com/wernerandrew/jedi-starter/blob/master/jedi-starter.el
+; Also downloaded it to ~/Programs on lettie
+
+; have a look at ido-vertical-mode 

@@ -12,7 +12,8 @@
  'org-babel-load-languages
  '((python . t)
    (js . t)
-   (C . t)))
+   (C . t)
+   (org . t)))
    ;; (python . t)
    ;; (C . t)
    ;; (js . t)))
@@ -42,6 +43,9 @@
 ; Don't execute all the code blocks when exporting the document
 (setq org-export-babel-evaluate nil)
 
+; Put table captions below the table rather than above
+(setq org-export-latex-table-caption-above nil)
+
 
 ; See part three of this:
 ; http://orgmode.org/worg/org-tutorials/org-latex-export.html
@@ -55,6 +59,7 @@
 \\onehalfspacing
 \\usepackage{etoolbox}
 \\AtBeginEnvironment{minted}{\\singlespacing \\fontsize{8}{8}\\selectfont}
+\\usepackage[hidelinks]{hyperref}
 "
                ("\\section{%s}" . "\\section*{%s}")
                ("\\subsection{%s}" . "\\subsection*{%s}")
