@@ -13,24 +13,24 @@
 
 ;; Get the current computer name
 (defun insert-system-name()
-(interactive)
-"Get current system's name"
-(insert (format "%s" system-name))
-)
+  (interactive)
+  "Get current system's name"
+  (insert (format "%s" system-name)))
+
 
 ;; Hopefully get the OS type
 (defun insert-system-type()
-(interactive)
-"Get current system type"
-(insert (format "%s" system-type))
-)
+  (interactive)
+  "Get current system type"
+  (insert (format "%s" system-type)))
+
 
 ;; Insert the path of the currently selected buffer
 (defun insert-buffer-file-name()
-(interactive)
-"Get current system type"
-(insert (format "%s" (or (buffer-file-name) default-directory)))
-)
+  (interactive)
+  "Get current system type"
+  (insert (format "%s" (or (buffer-file-name) default-directory))))
+
 
 ;; Doesn't currently work...
 ; The suggestion came from:
@@ -54,3 +54,4 @@
           (ansi-term "/bin/bash")
           (rename-buffer "athena")
           (term-send-invisible "ssh -XY athena"))))
+

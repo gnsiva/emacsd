@@ -14,14 +14,12 @@
    (js . t)
    (C . t)
    (org . t)))
-   ;; (python . t)
-   ;; (C . t)
-   ;; (js . t)))
 
 ;; Stop org-mode asking for confirmation when executing python code block
 (defun my-org-confirm-babel-evaluate (lang body)
-  (not (string= lang "python")) ; don't ask for python
-  (not (string= lang "C")))  
+  (not (string= lang "python"))) ; don't ask for python
+  ;; (not (string= lang "C")))  
+
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 
 
@@ -60,6 +58,7 @@
 \\usepackage{etoolbox}
 \\AtBeginEnvironment{minted}{\\singlespacing \\fontsize{8}{8}\\selectfont}
 \\usepackage[hidelinks]{hyperref}
+\\bibliographystyle{unsrt}
 "
                ("\\section{%s}" . "\\section*{%s}")
                ("\\subsection{%s}" . "\\subsection*{%s}")
@@ -79,6 +78,41 @@
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                ("\\paragraph{%s}" . "\\paragraph*{%s}")
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+
+(add-to-list 'org-export-latex-classes
+             '("test"
+"\\documentclass[a4paper,20pt, twoside]{article}
+\\usepackage{lmodern}
+\\usepackage[lmargin=4cm,rmargin=2cm,tmargin=2cm,bmargin=2cm]{geometry}
+\\usepackage{setspace}
+\\usepackage{graphicx}
+\\onehalfspacing
+\\usepackage[font=singlespacing,font=footnotesize,width=.75\\textwidth]{caption}
+\\usepackage{etoolbox}
+\\AtBeginEnvironment{minted}{\\singlespacing \\fontsize{8}{8}\\selectfont}
+\\usepackage[hidelinks]{hyperref}
+\\bibliographystyle{unsrt}
+\\usepackage[superscript,biblabel]{cite}
+"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+;; \\usepackage[superscript,biblabel]{cite}
+
+(require 'org)
+  (require 'org-latex)
+  ;; (require 'ox-latex)
+  (setq org-latex-packages-alist 
+        (quote (("" "color" t) ("" "minted" t) ("" "parskip" t))))
+
+(setq org-latex-to-pdf-process '("pdflatex -interaction nonstopmode -shell-escape -output-directory %o %f"
+				 "bibtex $(basename %b)"
+				 "pdflatex -interaction nonstopmode -shell-escape -output-directory %o %f"
+				 "pdflatex -interaction nonstopmode -shell-escape -output-directory %o %f"))
 
 ;; ================================================================
 ;; General stuff
