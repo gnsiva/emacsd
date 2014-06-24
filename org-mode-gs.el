@@ -114,6 +114,22 @@
 				 "pdflatex -interaction nonstopmode -shell-escape -output-directory %o %f"
 				 "pdflatex -interaction nonstopmode -shell-escape -output-directory %o %f"))
 
+;; ================ 
+;; RefTex
+;; Configure RefTeX for use with org-mode. At the end of your
+;; org-mode file you need to insert your style and bib file:
+;; \bibliographystyle{plain}
+;; \bibliography{ProbePosition}
+;; See http://www.mfasold.net/blog/2009/02/using-emacs-org-mode-to-draft-papers/
+(defun org-mode-reftex-setup ()
+  (load-library "reftex")
+  (and (buffer-file-name)
+       (file-exists-p (buffer-file-name))
+       (reftex-parse-all))
+  (define-key org-mode-map (kbd "<f8>") 'reftex-citation))
+
+(add-hook 'org-mode-hook 'org-mode-reftex-setup)
+
 ;; ================================================================
 ;; General stuff
 ; (automatically starts files ending in .org in org mode)

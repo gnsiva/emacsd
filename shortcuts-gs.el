@@ -41,6 +41,8 @@
 ; Macro quick button
 (global-set-key [f7] 'kmacro-end-and-call-macro)
 
+;; [f8] is used by reftex (org mode)
+
 ; On Mac use cmd key as meta (as in M-x)
 (when (string= system-type "darwin")
   (setq x-super-keysym 'meta))

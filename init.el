@@ -71,3 +71,5 @@
 ; Also downloaded it to ~/Programs on lettie
 
 ; have a look at ido-vertical-mode 
+
+(set-cursor-color "Firebrick1")

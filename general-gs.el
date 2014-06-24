@@ -30,8 +30,8 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Invert colours in windowed
+(set-cursor-color "Royal Blue") ; had to move this to init.el because it is overwritten
 ; linux
-(set-cursor-color "Royal Blue")
 ;; (when (string= window-system "x")
 ;;   (invert-face 'default))
 ; mac version
@@ -60,6 +60,8 @@
 (if (equal system-name "lettie")
     (set-frame-font "Ubuntu Mono-11" nil t))
 
+(if (equal system-name "anake")
+    (set-frame-font "Ubuntu Mono-10" nil t))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; eshell
