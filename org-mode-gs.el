@@ -94,6 +94,7 @@
 \\usepackage[hidelinks]{hyperref}
 \\bibliographystyle{unsrt}
 \\usepackage[superscript,biblabel]{cite}
+\\usepackage{cancel}
 "
                ("\\section{%s}" . "\\section*{%s}")
                ("\\subsection{%s}" . "\\subsection*{%s}")

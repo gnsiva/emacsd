@@ -15,6 +15,9 @@
 (menu-bar-mode -1)
 (transient-mark-mode 1)
 
+;; answer warnings with just y or n, rather than typing out yes/no
+(fset 'yes-or-no-p 'y-or-n-p)
+
 ; ido
 (ido-mode t)
 (setq ido-enable-flex-matching t)
