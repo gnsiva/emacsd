@@ -8,11 +8,11 @@
 ;; There is stuff needed from the packages-gs.el file
 
 ;; ;; Python mode settings
-(require 'python-mode)
-(add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
+(require 'python)
+
+(add-to-list 'auto-mode-alist '("\\.py$" . python))
+
 (setq py-electric-colon-active t)
-(add-hook 'python-mode-hook 'autopair-mode)
-(add-hook 'python-mode-hook 'yas-minor-mode)
 
 ;(require 'epc)
 (require 'jedi)
@@ -22,7 +22,8 @@
     (setq jedi:server-command
 	  '("/Library/Frameworks/Python.framework/Versions/Current/bin/python" "/Users/ganesh/.emacs.d/elpa/jedi-20130714.1415/jediepcserver.py")))
 
-(add-hook 'python-mode-hook
+
+(add-hook 'python-hook
 	  (lambda ()
 	    (jedi:setup)
 	    (jedi:ac-setup)
@@ -31,6 +32,7 @@
             (local-set-key (kbd "M-.") 'jedi:goto-definition)
             (local-set-key (kbd "M-,") 'jedi:goto-definition-pop-marker)
             (local-set-key (kbd "M-/") 'jedi:get-in-function-call)))
+
 
 ;; Flymake settings for Python
 (defun flymake-python-init ()
@@ -60,10 +62,40 @@
 
 (add-hook 'post-command-hook 'ca-flymake-show-help)
 
-(add-to-list 'flymake-allowed-file-name-masks
-             '("\\.py\\'" flymake-python-init))
+(add-hook 'python-hook 'flymake-activate)
+(add-hook 'python-hook 'auto-complete-mode)
+(add-hook 'python-hook 'autopair-mode)
+(add-hook 'python-hook 'yas-minor-mode)
 
-(add-hook 'python-mode-hook 'flymake-activate)
-(add-hook 'python-mode-hook 'auto-complete-mode)
+
+;; ================================================================
+;; All the stuff you commented out to switch to python.el from python-mode.el
+;; the reason was that htmlize.el didn't work with python-mode.el
+
+;; TODO - uncomment this once you get python.el working properly
+
+;; (require 'python-mode)
+
+;; (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
+
+;; (add-hook 'python-mode-hook
+;; 	  (lambda ()
+;; 	    (jedi:setup)
+;; 	    (jedi:ac-setup)
+;;             (local-set-key (kbd "M-?") 'jedi:show-doc)
+;;             (local-set-key (kbd "A-SPC") 'jedi:complete)
+;;             (local-set-key (kbd "M-.") 'jedi:goto-definition)
+;;             (local-set-key (kbd "M-,") 'jedi:goto-definition-pop-marker)
+;;             (local-set-key (kbd "M-/") 'jedi:get-in-function-call)))
+
+
+;; ;; I couldn't work out how to hack this to work with python.el (not that I really tried)
+;; (add-to-list 'flymake-allowed-file-name-masks
+;;              '("\\.py\\'" flymake-python-init))
+
+;; (add-hook 'python-mode-hook 'flymake-activate)
+;; (add-hook 'python-mode-hook 'auto-complete-mode)
+;; (add-hook 'python-mode-hook 'autopair-mode)
+;; (add-hook 'python-mode-hook 'yas-minor-mode)
 
 

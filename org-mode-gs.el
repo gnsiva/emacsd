@@ -130,6 +130,8 @@
   (define-key org-mode-map (kbd "<f8>") 'reftex-citation))
 
 (add-hook 'org-mode-hook 'org-mode-reftex-setup)
+(add-hook 'org-mode-hook 'turn-on-visual-line-mode)
+(setq org-startup-indented nil)
 
 ;; ================================================================
 ;; General stuff
