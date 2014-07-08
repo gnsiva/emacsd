@@ -21,7 +21,7 @@
 (global-set-key (kbd "<backspace>") (lambda () ))
 
 ; search and replace
-(global-set-key (kbd "C-M-s") 'replace-string) ; doesn't work ubuntu on mba
+;; (global-set-key "\C-\M-s" 'search-forward-regexp)
 
 (global-set-key [f1] 'compile)
 (global-set-key [f2] 'next-error)
