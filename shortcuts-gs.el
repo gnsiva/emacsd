@@ -16,9 +16,9 @@
 (global-set-key "\C-h" 'delete-backward-char)
 (global-set-key (kbd "C-?") 'help-command)
 
-; disable return and backspace
-(global-set-key (kbd "<return>") (lambda () ))
-(global-set-key (kbd "<backspace>") (lambda () ))
+;; ; disable return and backspace
+;; (global-set-key (kbd "<return>") (lambda () ))
+;; (global-set-key (kbd "<backspace>") (lambda () ))
 
 ; search and replace
 ;; (global-set-key "\C-\M-s" 'search-forward-regexp)

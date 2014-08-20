@@ -15,7 +15,7 @@
 
 ;; make more packages available with the package installer
 (setq to-install
-      '(python-mode cl-lib yasnippet jedi auto-complete autopair find-file-in-repository exec-path-from-shell magit auctex htmlize org))
+      '(python-mode cl-lib yasnippet jedi auto-complete autopair find-file-in-repository exec-path-from-shell magit auctex htmlize org emacs-eclim gtags smartscan nxml))
 
 (mapc 'install-if-needed to-install)
 

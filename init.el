@@ -6,6 +6,9 @@
 (load "~/.emacs.d/paths-gs.el")
 (load "~/.emacs.d/python-gs.el")
 
+(load "~/.emacs.d/java-gs.el")
+
+
 ;; Remember open buffers when reopening
 (desktop-save-mode 1)
 (find-file "~/.emacs.d/init.el")

@@ -13,7 +13,9 @@
  '((python . t)
    (js . t)
    (C . t)
-   (org . t)))
+   (org . t)
+   (java . t)
+   (sh . y)))
 
 ;; Stop org-mode asking for confirmation when executing python code block
 (defun my-org-confirm-babel-evaluate (lang body)
@@ -102,7 +104,6 @@
                ("\\paragraph{%s}" . "\\paragraph*{%s}")
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
-;; \\usepackage[superscript,biblabel]{cite}
 
 (require 'org)
   (require 'org-latex)
