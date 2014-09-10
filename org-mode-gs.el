@@ -127,13 +127,18 @@
 % see this for more on fancyhdr (pg 6-7)
 % http://texdoc.net/texmf-dist/doc/latex/fancyhdr/fancyhdr.pdf
 
+% fonts for header and footer (pg 14)
+\\newcommand{\\hdrFtrFont}{\\fontfamily{cmr}\\fontsize{14}{14}\\selectfont}
+
 \\usepackage{fancyhdr}
 \\pagestyle{fancy}
 \\renewcommand{\\headrulewidth}{0.4pt}
 \\fancyhf{}
-\\fancyhead[RO]{\\nouppercase{\\rightmark}}
-\\fancyhead[LE]{\\nouppercase{\\leftmark}}
-\\fancyfoot[LE,RO]{\\thepage}
+\\fancyhead[RO]{\\hdrFtrFont \\nouppercase{\\rightmark}}
+\\fancyhead[LE]{\\hdrFtrFont \\nouppercase{\\leftmark}}
+\\fancyfoot[LE,RO]{\\hdrFtrFont \\thepage}
+
+
 
 
 \\usepackage[font=singlespacing,font=footnotesize,width=.75\\textwidth]{caption}
