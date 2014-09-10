@@ -98,3 +98,10 @@
 ; Auto start
 ;; (if (file-exists-p "~/.revive.el")
 ;;   (resume))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; UNIX
+
+;; Word count (only works on the entire buffer)
+;; (defun wc () (interactive) (shell-command (concat "wc " buffer-file-name)))
+;; (global-set-key "\C-cw" 'wc)

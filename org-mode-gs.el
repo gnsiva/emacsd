@@ -84,12 +84,16 @@
 
 (add-to-list 'org-export-latex-classes
              '("test"
-"\\documentclass[a4paper,20pt, twoside]{article}
+"\\documentclass[a4paper, twoside]{article}
+\\usepackage[fontsize=13pt]{scrextend}
 \\usepackage{lmodern}
-\\usepackage[lmargin=4cm,rmargin=2cm,tmargin=2cm,bmargin=2cm]{geometry}
-\\usepackage{setspace}
+\\usepackage[lmargin=4cm,rmargin=2cm,tmargin=2.5cm,bmargin=3.2cm]{geometry}
 \\usepackage{graphicx}
+
+\\usepackage{setspace}
 \\onehalfspacing
+%\\doublespacing
+
 \\usepackage[font=singlespacing,font=footnotesize,width=.75\\textwidth]{caption}
 \\usepackage{etoolbox}
 \\AtBeginEnvironment{minted}{\\singlespacing \\fontsize{8}{8}\\selectfont}
@@ -103,6 +107,49 @@
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                ("\\paragraph{%s}" . "\\paragraph*{%s}")
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+;; ================================================================
+;; Actual thesis format
+(add-to-list 'org-export-latex-classes
+             '("thesis"
+"\\documentclass[a4paper, twoside]{book}
+\\usepackage[fontsize=13pt]{scrextend}
+\\usepackage{lmodern}
+\\usepackage[lmargin=4cm,rmargin=2cm,tmargin=3cm,bmargin=3.2cm]{geometry}
+\\usepackage{graphicx}
+
+\\usepackage{setspace}
+\\onehalfspacing
+
+% ================
+% Header and Footer
+
+% see this for more on fancyhdr (pg 6-7)
+% http://texdoc.net/texmf-dist/doc/latex/fancyhdr/fancyhdr.pdf
+
+\\usepackage{fancyhdr}
+\\pagestyle{fancy}
+\\renewcommand{\\headrulewidth}{0.4pt}
+\\fancyhf{}
+\\fancyhead[RO]{\\nouppercase{\\rightmark}}
+\\fancyhead[LE]{\\nouppercase{\\leftmark}}
+\\fancyfoot[LE,RO]{\\thepage}
+
+
+\\usepackage[font=singlespacing,font=footnotesize,width=.75\\textwidth]{caption}
+\\usepackage{etoolbox}
+\\AtBeginEnvironment{minted}{\\singlespacing \\fontsize{8}{8}\\selectfont}
+\\usepackage[hidelinks]{hyperref}
+\\bibliographystyle{unsrt}
+\\usepackage[superscript,biblabel]{cite}
+\\usepackage{cancel}
+"
+               ("\\chapter{%s}" . "\\chapter*{%s}")
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")))
+
 
 
 (require 'org)
