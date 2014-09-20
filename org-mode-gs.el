@@ -166,7 +166,8 @@
 % http://tex.stackexchange.com/questions/87414/per-chapter-bibliographies-in-biblatex
 
 %\\usepackage[citestyle=numeric,bibstyle=numeric,maxbibnames=20,backend=bibtex,refsection=chapter,citereset=chapter]{biblatex}
-\\usepackage[citestyle=numeric,bibstyle=numeric,maxbibnames=20,backend=bibtex,refsection=chapter]{biblatex}
+%\\usepackage[style=numeric-comp,sorting=none,maxbibnames=20,backend=bibtex,refsection=chapter]{biblatex}
+\\usepackage[style=nature,maxbibnames=20,backend=bibtex,refsection=chapter]{biblatex}
 
 \\addbibresource{introduction.bib}
 \\addbibresource{1408_a1at.bib}
