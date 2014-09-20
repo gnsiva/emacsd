@@ -138,15 +138,51 @@
 \\fancyhead[LE]{\\hdrFtrFont \\nouppercase{\\leftmark}}
 \\fancyfoot[LE,RO]{\\hdrFtrFont \\thepage}
 
+% changes vertical space between paragraphs
+%\\setlength{\\parskip}{10pt} 
 
+% footnotes - use symbols instead of numbers
+\\renewcommand*{\\thefootnote}{\\fnsymbol{footnote}}
 
+% overcoming org mode fail where it wouldn't let me put in a web link properly
+\\newcommand{\\clemmerdb}{http://www.indiana.edu/~clemmer/Research/Cross\\%20Section\\%20Database/cs\\_database.php}
+\\newcommand{\\bushdb}{http://depts.washington.edu/bushlab/ccsdatabase/}
+\\newcommand{\\mobcal}{http://www.indiana.edu/~nano/software.html}
+\\newcommand{\\impact}{http://impact.chem.ox.ac.uk/}
+\\newcommand{\\pdblink}{http://www.rcsb.org/pdb/}
+\\newcommand{\\maldiFigureLink}{http://www.chm.bris.ac.uk/ms/maldi-ionisation.xhtml}
+%\\newcommand{\\}{}
+%\\newcommand{\\}{}
+
+% ================================================================
+% bibliography
+% make bibliography a numbered section in the contents
+% \\usepackage[nottoc,notlot,notlof]{tocbibind} % turned it into a chapter, so no good
+% change name of bibliography sections to references
+\\renewcommand{\\bibname}{References}
+
+% ================
+% bibtex per chapter bibliography 
+% http://tex.stackexchange.com/questions/87414/per-chapter-bibliographies-in-biblatex
+
+%\\usepackage[citestyle=numeric,bibstyle=numeric,maxbibnames=20,backend=bibtex,refsection=chapter,citereset=chapter]{biblatex}
+\\usepackage[citestyle=numeric,bibstyle=numeric,maxbibnames=20,backend=bibtex,refsection=chapter]{biblatex}
+
+\\addbibresource{introduction.bib}
+\\addbibresource{1408_a1at.bib}
+\\addbibresource{1306_amphi.bib}
+\\addbibresource{1407_challenger.bib}
+
+% original
+%\\bibliographystyle{unsrt} 
+%\\usepackage[superscript,biblabel]{cite}
+
+% ================================================================
 
 \\usepackage[font=singlespacing,font=footnotesize,width=.75\\textwidth]{caption}
 \\usepackage{etoolbox}
 \\AtBeginEnvironment{minted}{\\singlespacing \\fontsize{8}{8}\\selectfont}
 \\usepackage[hidelinks]{hyperref}
-\\bibliographystyle{unsrt}
-\\usepackage[superscript,biblabel]{cite}
 \\usepackage{cancel}
 "
                ("\\chapter{%s}" . "\\chapter*{%s}")
@@ -163,10 +199,29 @@
   (setq org-latex-packages-alist 
         (quote (("" "color" t) ("" "minted" t) ("" "parskip" t))))
 
+;; normal version
+;; (setq org-latex-to-pdf-process '("pdflatex -interaction nonstopmode -shell-escape -output-directory %o %f"
+;; 				 "bibtex $(basename %b)"
+;; 				 "pdflatex -interaction nonstopmode -shell-escape -output-directory %o %f"
+;; 				 "pdflatex -interaction nonstopmode -shell-escape -output-directory %o %f"))
+
+;; thesis version
+;; pdflatex myfile.tex
+;; bibtex myfile1-blx.aux  ;; you need one of these for each chapter
+;; bibtex myfile2-blx.aux
+;; bibtex myfile.aux
+;; pdflatex myfile.tex
+;; pdflatex myfile.tex
 (setq org-latex-to-pdf-process '("pdflatex -interaction nonstopmode -shell-escape -output-directory %o %f"
-				 "bibtex $(basename %b)"
+				 "bibtex $(basename %b1-blx.aux)"
+				 "bibtex $(basename %b2-blx.aux)"
+				 "bibtex $(basename %b3-blx.aux)"
+				 "bibtex $(basename %b4-blx.aux)"
+				 "bibtex $(basename %b.aux)"
 				 "pdflatex -interaction nonstopmode -shell-escape -output-directory %o %f"
 				 "pdflatex -interaction nonstopmode -shell-escape -output-directory %o %f"))
+
+
 
 ;; ================ 
 ;; RefTex

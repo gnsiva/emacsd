@@ -31,12 +31,12 @@
 ; yasnippet
 (require 'yasnippet)
 (setq yas-snippet-dirs 
-      '("~/yasnippets" "~/Dropbox/musings/config_files/yasnippets"))
+      '("~/yasnippets"))
 
-; Different directory for chromebook
-(if (equal system-name "localhost")
-    (setq yas-snippet-dirs '("~/Usb/yasnippets"
-			     "~/yasnippets")))
+;; ; Different directory for chromebook
+;; (if (equal system-name "localhost")
+;;     (setq yas-snippet-dirs '("~/Usb/yasnippets"
+;; 			     "~/yasnippets")))
 
 (yas-global-mode 1)
 
