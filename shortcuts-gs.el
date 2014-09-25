@@ -82,6 +82,7 @@
 (defalias 'qrep 'query-replace) 
 (defalias 'erep 'replace-regexp)
 (defalias 'qerep 'query-replace-regexp)
+(defalias 'esearch 'isearch-forward-regexp)
 (defalias 'ff 'find-file)
 
 

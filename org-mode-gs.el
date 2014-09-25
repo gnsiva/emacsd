@@ -145,12 +145,14 @@
 \\renewcommand*{\\thefootnote}{\\fnsymbol{footnote}}
 
 % overcoming org mode fail where it wouldn't let me put in a web link properly
-\\newcommand{\\clemmerdb}{http://www.indiana.edu/~clemmer/Research/Cross\\%20Section\\%20Database/cs\\_database.php}
+\\newcommand{\\clemmerdb}{http://www.indiana.edu/$\\sim$clemmer/Research/Cross\\%20Section\\%20Database/cs\\_database.php}
 \\newcommand{\\bushdb}{http://depts.washington.edu/bushlab/ccsdatabase/}
-\\newcommand{\\mobcal}{http://www.indiana.edu/~nano/software.html}
+\\newcommand{\\mobcal}{http://www.indiana.edu/$\\sim$nano/software.html}
 \\newcommand{\\impact}{http://impact.chem.ox.ac.uk/}
 \\newcommand{\\pdblink}{http://www.rcsb.org/pdb/}
 \\newcommand{\\maldiFigureLink}{http://www.chm.bris.ac.uk/ms/maldi-ionisation.xhtml}
+\\newcommand{\\sigmasoftware}{http://bowers.chem.ucsb.edu/theory\\_analysis/cross-sections/sigma.shtml}
+\\newcommand{\\thalassinoslab}{http://www.homepages.ucl.ac.uk/$\\sim$ucbtkth/resources.html}
 %\\newcommand{\\}{}
 %\\newcommand{\\}{}
 
@@ -165,14 +167,40 @@
 % bibtex per chapter bibliography 
 % http://tex.stackexchange.com/questions/87414/per-chapter-bibliographies-in-biblatex
 
-%\\usepackage[citestyle=numeric,bibstyle=numeric,maxbibnames=20,backend=bibtex,refsection=chapter,citereset=chapter]{biblatex}
-%\\usepackage[style=numeric-comp,sorting=none,maxbibnames=20,backend=bibtex,refsection=chapter]{biblatex}
-\\usepackage[style=nature,maxbibnames=20,backend=bibtex,refsection=chapter]{biblatex}
+\\usepackage[citestyle=numeric-comp,bibstyle=authoryear,sorting=none,maxbibnames=99,backend=bibtex,refsection=chapter,doi=false,isbn=false,url=false,firstinits=true]{biblatex}
+\\AtEveryBibitem{\\clearfield{month}}
+\\AtEveryBibitem{\\clearfield{day}}
+\\AtEveryBibitem{\\clearfield{series}}
+\\AtEveryBibitem{\\clearlist{language}}
+\\renewbibmacro{in:}{}
+\\renewcommand*{\\mkbibnamefirst}[1]{{\\let~\\,#1}}
+\\setlength\\bibitemsep{2\\itemsep}
 
-\\addbibresource{introduction.bib}
-\\addbibresource{1408_a1at.bib}
-\\addbibresource{1306_amphi.bib}
+\\DeclareFieldFormat{bibentrysetcount}{\\mkbibparens{\\mknumalph{#1}}}
+\\DeclareFieldFormat{labelnumberwidth}{\\mkbibbrackets{#1}}
+
+\\defbibenvironment{bibliography}
+  {\\list
+     {\\printtext[labelnumberwidth]{%
+    \\printfield{prefixnumber}%
+    \\printfield{labelnumber}}}
+     {\\setlength{\\labelwidth}{\\labelnumberwidth}%
+      \\setlength{\\leftmargin}{\\labelwidth}%
+      \\setlength{\\labelsep}{\\biblabelsep}%
+      \\addtolength{\\leftmargin}{\\labelsep}%
+      \\setlength{\\itemsep}{\\bibitemsep}%
+      \\setlength{\\parsep}{\\bibparsep}}%
+      \\renewcommand*{\\makelabel}[1]{\\hss##1}}
+  {\\endlist}
+  {\\item}
+
+%\\DeclareNameAlias{sortname}{last-first}
+
+%\\addbibresource{introduction.bib}
+%\\addbibresource{1408_a1at.bib}
+%\\addbibresource{1306_amphi.bib}
 \\addbibresource{1407_challenger.bib}
+\\addbibresource{bib-thesis.bib}
 
 % original
 %\\bibliographystyle{unsrt} 
@@ -214,10 +242,11 @@
 ;; pdflatex myfile.tex
 ;; pdflatex myfile.tex
 (setq org-latex-to-pdf-process '("pdflatex -interaction nonstopmode -shell-escape -output-directory %o %f"
-				 "bibtex $(basename %b1-blx.aux)"
+				 "bibtex $(basename %b1-blx.aux)" ;; you need one of these for each chapter/bibliography
 				 "bibtex $(basename %b2-blx.aux)"
 				 "bibtex $(basename %b3-blx.aux)"
 				 "bibtex $(basename %b4-blx.aux)"
+				 "bibtex $(basename %b5-blx.aux)"
 				 "bibtex $(basename %b.aux)"
 				 "pdflatex -interaction nonstopmode -shell-escape -output-directory %o %f"
 				 "pdflatex -interaction nonstopmode -shell-escape -output-directory %o %f"))
