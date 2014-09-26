@@ -121,6 +121,9 @@
 \\usepackage{setspace}
 \\onehalfspacing
 
+%\\DeclareMathSizes{13}{13}{12}{8}
+\\usepackage{xcolor}
+
 % ================
 % Header and Footer
 
@@ -194,7 +197,7 @@
   {\\endlist}
   {\\item}
 
-%\\DeclareNameAlias{sortname}{last-first}
+\\DeclareNameAlias{sortname}{last-first}
 
 %\\addbibresource{introduction.bib}
 %\\addbibresource{1408_a1at.bib}
@@ -247,6 +250,7 @@
 				 "bibtex $(basename %b3-blx.aux)"
 				 "bibtex $(basename %b4-blx.aux)"
 				 "bibtex $(basename %b5-blx.aux)"
+				 "bibtex $(basename %b6-blx.aux)"
 				 "bibtex $(basename %b.aux)"
 				 "pdflatex -interaction nonstopmode -shell-escape -output-directory %o %f"
 				 "pdflatex -interaction nonstopmode -shell-escape -output-directory %o %f"))
