@@ -48,6 +48,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Font stuff
+(set-frame-font "Ubuntu Mono-11" nil t)
 
 ;;;;;;;;;;;;;;;;
 ;; Aphie's ubuntu VM
