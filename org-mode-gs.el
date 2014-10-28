@@ -15,6 +15,7 @@
    (C . t)
    (org . t)
    (java . t)
+   (sql . t)
    (sh . y)))
 
 ;; Stop org-mode asking for confirmation when executing python code block
