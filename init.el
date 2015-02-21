@@ -76,3 +76,5 @@
 ; have a look at ido-vertical-mode 
 
 (set-cursor-color "Firebrick1")
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)

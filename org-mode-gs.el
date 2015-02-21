@@ -15,7 +15,8 @@
    (C . t)
    (org . t)
    (java . t)
-   (sh . y)))
+   (sh . y)
+   (R . y)))
 
 ;; Stop org-mode asking for confirmation when executing python code block
 (defun my-org-confirm-babel-evaluate (lang body)
@@ -51,14 +52,14 @@
 ; http://orgmode.org/worg/org-tutorials/org-latex-export.html
 (add-to-list 'org-export-latex-classes
              '("myarticle"
-"\\documentclass[a4paper,20pt]{article}
+"\\documentclass[a4paper,11pt]{article}
 \\usepackage{lmodern}
-\\usepackage[margin=2.5cm]{geometry}
+\\usepackage[margin=3cm]{geometry}
 \\usepackage{setspace}
 \\usepackage{graphicx}
 \\onehalfspacing
 \\usepackage{etoolbox}
-\\AtBeginEnvironment{minted}{\\singlespacing \\fontsize{8}{8}\\selectfont}
+\\AtBeginEnvironment{minted}{\\singlespacing \\fontsize{11}{11}\\selectfont}
 \\usepackage[hidelinks]{hyperref}
 \\bibliographystyle{unsrt}
 "

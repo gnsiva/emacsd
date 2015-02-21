@@ -65,7 +65,7 @@
     (set-frame-font "Ubuntu Mono-11" nil t))
 
 (if (equal system-name "anake")
-    (set-frame-font "Ubuntu Mono-10" nil t))
+    (set-frame-font "Ubuntu Mono-11" nil t))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; eshell
