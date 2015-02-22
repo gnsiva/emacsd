@@ -15,8 +15,9 @@
    (C . t)
    (org . t)
    (java . t)
-   (sh . y)
-   (R . y)))
+   (R . t)
+   (sql . t)
+   (sh . t)))
 
 ;; Stop org-mode asking for confirmation when executing python code block
 (defun my-org-confirm-babel-evaluate (lang body)
