@@ -226,6 +226,32 @@
                ("\\paragraph{%s}" . "\\paragraph*{%s}")))
 
 
+(add-to-list 'org-export-latex-classes
+             '("corrections"
+"
+%\\documentclass[12pt]{article}
+\\documentclass[14pt]{extarticle}
+\\usepackage[top=3cm, bottom=3cm, left=3cm, right=3cm]{geometry}
+% changes vertical space between paragraphs
+\\usepackage{parskip}
+\\setlength{\\parskip}{10pt}
+
+% Get rid of red boxes around links
+\\usepackage{hyperref}
+\\hypersetup{
+    colorlinks,%
+    citecolor=black,%
+    filecolor=black,%
+    linkcolor=black,%
+    urlcolor=black
+}
+"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
 
 (require 'org)
   (require 'org-latex)
