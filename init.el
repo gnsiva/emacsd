@@ -1,7 +1,7 @@
+(load "~/.emacs.d/packages-gs.el")
 (load "~/.emacs.d/org-mode-gs.el")
 (load "~/.emacs.d/shortcuts-gs.el")
 (load "~/.emacs.d/functions-gs.el")
-(load "~/.emacs.d/packages-gs.el")
 (load "~/.emacs.d/general-gs.el")
 (load "~/.emacs.d/paths-gs.el")
 (load "~/.emacs.d/python-gs.el")

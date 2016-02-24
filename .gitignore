@@ -3,6 +3,6 @@ auto-save-list/*
 eshell/*
 session.*
 elpa/*
-
+ac-comphist.dat
 
 

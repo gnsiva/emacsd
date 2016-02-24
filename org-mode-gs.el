@@ -1,6 +1,6 @@
 (require 'org)
 (require 'org-install)
-(require 'org-html)
+(require 'ox-html)
 
 ;; ================================================================
 ;; Running code inside org mode
@@ -33,12 +33,13 @@
 ; pip has it too
 
 ;; LaTeX
-(require 'org-latex)
+(require 'ox-latex)
 (unless (boundp 'org-export-latex-classes)
   (setq org-export-latex-classes nil))
 
 (setq org-export-latex-listings 'minted)
-(add-to-list 'org-export-latex-packages-alist '("" "minted"))
+;; TODO (add-to-list 'org-export-latex-packages-alist '("" "minted"))
+
 ; syntax colouring for html at least (and in the buffer)
 (setq org-src-fontify-natively t)
 
@@ -254,7 +255,6 @@
 
 
 (require 'org)
-  (require 'org-latex)
   ;; (require 'ox-latex)
   (setq org-latex-packages-alist 
         (quote (("" "color" t) ("" "minted" t) ("" "parskip" t))))
