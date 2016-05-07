@@ -52,7 +52,7 @@
 
 ; See part three of this:
 ; http://orgmode.org/worg/org-tutorials/org-latex-export.html
-(add-to-list 'org-export-latex-classes
+(add-to-list 'org-latex-classes
              '("myarticle"
 "\\documentclass[a4paper,11pt]{article}
 \\usepackage{lmodern}
@@ -71,7 +71,7 @@
                ("\\paragraph{%s}" . "\\paragraph*{%s}")
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
  
-(add-to-list 'org-export-latex-classes
+(add-to-list 'org-latex-classes
              '("acs"
 "\\documentclass[journal=ancham,manuscript=article,layout=twocolumn]{achemso}
 \\usepackage{lmodern}
@@ -85,7 +85,7 @@
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
 
-(add-to-list 'org-export-latex-classes
+(add-to-list 'org-latex-classes
              '("test"
 "\\documentclass[a4paper, twoside]{article}
 \\usepackage[fontsize=13pt]{scrextend}
@@ -113,7 +113,7 @@
 
 ;; ================================================================
 ;; Actual thesis format
-(add-to-list 'org-export-latex-classes
+(add-to-list 'org-latex-classes
              '("thesis"
 "\\documentclass[a4paper, twoside]{book}
 \\usepackage[fontsize=13pt]{scrextend}
@@ -227,7 +227,7 @@
                ("\\paragraph{%s}" . "\\paragraph*{%s}")))
 
 
-(add-to-list 'org-export-latex-classes
+(add-to-list 'org-latex-classes
              '("corrections"
 "
 %\\documentclass[12pt]{article}

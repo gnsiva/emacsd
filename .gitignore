@@ -4,5 +4,6 @@ eshell/*
 session.*
 elpa/*
 ac-comphist.dat
-
+ido.last
+.emacs.desktop*
 
