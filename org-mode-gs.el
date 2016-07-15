@@ -325,3 +325,7 @@
 ;;     (flyspell-mode 1)))
 
 (setq flyspell-issue-message-flag nil)
+
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)

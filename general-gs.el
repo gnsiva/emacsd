@@ -10,7 +10,12 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; General
-(setq visible-bell t)
+;;(setq visible-bell t)
+(setq visible-bell nil)
+(setq ring-bell-function (lambda ()
+   (invert-face 'mode-line)
+   (run-with-timer 0.1 nil 'invert-face 'mode-line)))
+
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (transient-mark-mode 1)
