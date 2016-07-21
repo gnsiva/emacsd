@@ -709,7 +709,11 @@ Ido mode is awesome, this is basically just activates it. I gave it its own head
 
 #+BEGIN_SRC emacs-lisp
 (ido-mode t)
+(setq ido-everywhere 1)
 (setq ido-enable-flex-matching t)
+
+; not sure what this does, if problems, turn off
+(setq ido-create-new-buffer 'always)
 #+END_SRC
 * TODO Paths
 #+BEGIN_SRC emacs-lisp

@@ -497,6 +497,13 @@
   (insert (format "%s" (or (buffer-file-name) default-directory))))
 
 
+;; Word count (only works on the entire buffer)
+(defun wc () 
+  (interactive) 
+  (shell-command (concat "wc " buffer-file-name)))
+;; (global-set-key "\C-cw" 'wc)
+
+
 ;; Doesn't currently work...
 ; The suggestion came from:
 ; http://emacs.1067599.n5.nabble.com/tramp-does-not-see-directory-changes-td242710.html
@@ -520,19 +527,51 @@
           (rename-buffer "athena")
           (term-send-invisible "ssh -XY athena"))))
 
-;;(add-to-list 'load-path "~/.emacs.d/")
+; linux
+;; (when (string= window-system "x")
+;;   (invert-face 'default))
+; mac version
+;; (when (string= window-system "ns")
+;;   (invert-face 'default))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Files to automatically load into a buffer
+(set-frame-font "Ubuntu Mono-11" nil t)
 
-;; ;; Commented out cos files are in a different place now
-;; (find-file "~/Dropbox/musings/org_mode_notes/code_notes.org")
-;; (find-file "~/Dropbox/musings/org_mode_notes/lab_book.org")
-;; (find-file "~/.emacs.d/init.el")
+; Bev Macbook Pro
+;(if (equal system-name "lettie")
+;    (set-frame-font "Ubuntu Mono-11" nil t))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; General
-;;(setq visible-bell t)
+;; Ubuntu Mate Desktop
+(if (equal system-name "anake")
+    (set-frame-font "Ubuntu Mono-11" nil t))
+
+;; run the aliases etc from .bashrc for M-x compile and shell-command
+(setq shell-file-name "bash")
+(setq shell-command-switch "-ic")
+
+;; Run locate from within Emacs !!!!
+(use-package locate)
+
+
+;; Trying to make eshell work as expected
+;; Use bash type completions
+(setq eshell-cmpl-cycle-completions nil)
+;; Scroll to the bottom
+(setq eshell-scroll-to-bottom-on-output t)
+
+;; Answering just 'y' or 'n' will do
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+;; These functions are useful. Activate them.
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
+(put 'dired-find-alternate-file 'disabled nil)
+
+;; Put backup files in a central place (stops <fn>~ files in current dir)
+(setq backup-directory-alist '(("." . "~/.emacs.d/backup")))
+(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
+
+;; Stop audible bell, have flashing mode line instead
 (setq visible-bell nil)
 (setq ring-bell-function (lambda ()
    (invert-face 'mode-line)
@@ -541,77 +580,25 @@
 (menu-bar-mode -1)
 (transient-mark-mode 1)
 
-;; answer warnings with just y or n, rather than typing out yes/no
-(fset 'yes-or-no-p 'y-or-n-p)
+;; delete the region when typing, just like as we expect nowadays.
+(delete-selection-mode t)
 
-; ido
-(ido-mode t)
-(setq ido-enable-flex-matching t)
+;; Always show matching parenthesis
+(show-paren-mode t)
 
-; dired
-(put 'dired-find-alternate-file 'disabled nil)
+;; Put the column number next to the line number in the mode line
+(column-number-mode t)
 
-; locate
-(require 'locate)
+;; Turn off the blinking cursor
+(blink-cursor-mode -1)
 
-;; Put backup files in a central place (stops <fn>~ files in current dir)
-(setq backup-directory-alist '(("." . "~/.emacs.d/backup")))
+;; enable word wrap on all buffers
+(global-visual-line-mode)
+(diminish 'visual-line-mode)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Invert colours in windowed
-(set-cursor-color "Royal Blue") ; had to move this to init.el because it is overwritten
-; linux
-;; (when (string= window-system "x")
-;;   (invert-face 'default))
-; mac version
-;; (when (string= window-system "ns")
-;;   (invert-face 'default))
+; had to move this to init.el because it is overwritten
+(set-cursor-color "Royal Blue")
 
-
-; super key in ubuntu on the mac 
-(when (string= system-name "lettie")
-  (setq x-super-keysym 'meta))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Font stuff
-(set-frame-font "Ubuntu Mono-11" nil t)
-
-;;;;;;;;;;;;;;;;
-;; Aphie's ubuntu VM
-(if (equal system-name "ubuntu1204")
-    (set-frame-font "Ubuntu Mono-11" nil t))
-
-;;;;;;;;;;;;;;;;
-;; Ares's ubuntu VM (Lettie)
-(if (equal system-name "localhost")
-    (set-frame-font "Ubuntu Mono-10" nil t))
-
-; Lettie (macbook air)
-(if (equal system-name "lettie")
-    (set-frame-font "Ubuntu Mono-11" nil t))
-
-;; (if (equal system-name "anake")
-;;     (set-frame-font "Ubuntu Mono-11" nil t))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; eshell
-;; Use bash type completions
-(setq eshell-cmpl-cycle-completions nil)
-
-;; scroll to the bottom
-(setq eshell-scroll-to-bottom-on-output t)
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; C and Cuda programming
-
-(autoload 'cuda-mode "~/.emacs.d/cuda-mode.el" "Cuda-mode" t)
-(add-to-list 'auto-mode-alist '("\\.cu$" . cuda-mode))
-(add-to-list 'auto-mode-alist '("\\.cuh$" . cuda-mode))
-
-
-;;;;;;;;;;;;;;;;;;;;
-; revive.el  - saves and resumes your window layout
 ; save open windows
 (autoload 'save-current-configuration "revive" "Save status" t)
 (autoload 'resume "revive" "Resume Emacs" t)
@@ -626,12 +613,12 @@
 ;; (if (file-exists-p "~/.revive.el")
 ;;   (resume))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; UNIX
+(ido-mode t)
+(setq ido-everywhere 1)
+(setq ido-enable-flex-matching t)
 
-;; Word count (only works on the entire buffer)
-;; (defun wc () (interactive) (shell-command (concat "wc " buffer-file-name)))
-;; (global-set-key "\C-cw" 'wc)
+; not sure what this does, if problems, turn off
+(setq ido-create-new-buffer 'always)
 
 ;;;;;;;;;;;;;;;;
 ;; Fixing PATH and PYTHONPATH ISSUES
@@ -899,3 +886,5 @@
 (set-cursor-color "Firebrick1")
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
+
+(put 'dired-find-alternate-file 'disabled nil)
