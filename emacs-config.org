@@ -37,6 +37,10 @@
 #+END_SRC
 
 * TODO Packages (disperse contents)
+
+*gtags* 
+Installing this package was giving me problems with startup on the mac, so have removed it for now
+
 #+BEGIN_SRC emacs-lisp
 ;; Requisites: Emacs >= 24
 (require 'package)
@@ -55,7 +59,7 @@
 
 ;; make more packages available with the package installer
 (setq to-install
-      '(python-mode cl-lib yasnippet jedi auto-complete autopair find-file-in-repository exec-path-from-shell magit auctex htmlize org emacs-eclim gtags smartscan nxml git-commit))
+      '(python-mode cl-lib yasnippet jedi auto-complete autopair find-file-in-repository exec-path-from-shell magit auctex htmlize org emacs-eclim  smartscan nxml git-commit))
 
 (mapc 'install-if-needed to-install)
 
