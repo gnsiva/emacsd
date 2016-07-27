@@ -997,6 +997,7 @@ Ido mode is awesome, this is basically just activates it. I gave it its own head
   (set-cursor-color "Firebrick1")
   (put 'downcase-region 'disabled nil)
   (put 'upcase-region 'disabled nil)
+ (desktop-save-mode 1)
 #+END_SRC
 * Stuff to investigate in the future
 ** TODO Occur upgrade
