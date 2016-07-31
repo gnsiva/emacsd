@@ -525,7 +525,7 @@ This is the list of languages I want to be able to use in org-mode code blocks.
 (defalias 'esearch 'isearch-forward-regexp)
 (defalias 'ff 'find-file)
 #+END_SRC
-* TODO Functions
+* Functions
 #+BEGIN_SRC emacs-lisp
 ; Regexing for def
 (setq exp "def ")
@@ -719,21 +719,24 @@ Ido mode is awesome, this is basically just activates it. I gave it its own head
 ; not sure what this does, if problems, turn off
 (setq ido-create-new-buffer 'always)
 #+END_SRC
-* TODO Paths
+** Files to preopen
 #+BEGIN_SRC emacs-lisp
-;;;;;;;;;;;;;;;;
-;; Fixing PATH and PYTHONPATH ISSUES
-;; See here
-;; https://github.com/purcell/exec-path-from-shell
-;; http://stackoverflow.com/questions/6411121/how-to-make-emacs-to-use-my-bashrc-file
-;; Works in ubuntu 13.04 (update: also works on 12.04, 13.10 and 14.04)
-(setq to-install
-      '(exec-path-from-shell)) 
-
-(exec-path-from-shell-initialize)
-(exec-path-from-shell-copy-env "PYTHONPATH")
-(exec-path-from-shell-copy-env "PATH")
-(exec-path-from-shell-copy-env "LD_LIBRARY_PATH")
+(find-file "~/.emacs.d/emacs-config.org")
+#+END_SRC
+* Paths
+#+BEGIN_SRC emacs-lisp
+  ;;;;;;;;;;;;;;;;
+  ;; Fixing PATH and PYTHONPATH ISSUES
+  ;; See here
+  ;; https://github.com/purcell/exec-path-from-shell
+  ;; http://stackoverflow.com/questions/6411121/how-to-make-emacs-to-use-my-bashrc-file
+  ;; Works in ubuntu 13.04 (update: also works on 12.04, 13.10 and 14.04)
+  (use-package exec-path-from-shell
+    :ensure t
+    :config
+    (exec-path-from-shell-initialize)
+    (exec-path-from-shell-copy-env "PYTHONPATH")
+    (exec-path-from-shell-copy-env "PATH"))
 #+END_SRC
 * TODO Python
 #+BEGIN_SRC emacs-lisp
@@ -932,10 +935,6 @@ Ido mode is awesome, this is basically just activates it. I gave it its own head
 (require 'ac-emacs-eclim-source)
 (ac-emacs-eclim-config)
 #+END_SRC
-* TODO Files to preopen
-#+BEGIN_SRC emacs-lisp
-(find-file "~/.emacs.d/init.el")
-#+END_SRC
 * TODO Old init
 #+BEGIN_SRC emacs-lisp
   (custom-set-variables
@@ -1007,6 +1006,7 @@ http://oremacs.com/2015/01/26/occur-dwim/
 Remember you can run locate from within Emacs with:
 
 =M-x locate=
+** TODO SSH directly to AWS master given just the cluster name
 ** Dired - default behaviour is confusing?
 I previously added the following, not entirely sure what it does, so am going to remove it for now.
 
