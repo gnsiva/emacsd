@@ -469,6 +469,8 @@ This is the list of languages I want to be able to use in org-mode code blocks.
 (global-set-key [f3] 'eshell)
 ; Standard terminal
 (global-set-key [f4] 'ansi-term)
+; ipython
+(global-set-key [f8] 'ipython-buffer)
 
 ; Refresh buffer
 (defun revert-buffer-no-confirm ()
@@ -583,13 +585,22 @@ This is the list of languages I want to be able to use in org-mode code blocks.
 
 (defun athena()
   (interactive)
-  "Ssh into athena server with ansi-term as 'athena' buffer. If buffer already exists, switch to it."
+  "SSH into athena server with ansi-term as 'athena' buffer. If buffer already exists, switch to it."
   (if (get-buffer "athena")
       (switch-to-buffer "athena")
       (progn
           (ansi-term "/bin/bash")
           (rename-buffer "athena")
           (term-send-invisible "ssh -XY athena"))))
+
+(defun ipython-buffer()
+  (interactive)
+  "Create an IPython ansi-term buffer and rename it to 'ipython'. If buffer already exists, switch to it."
+  (if (get-buffer "ipython")
+      (switch-to-buffer "ipython")
+      (progn
+          (ansi-term "ipython")
+          (rename-buffer "ipython"))))
 #+END_SRC
 * Themes
 ** Inverted colours
