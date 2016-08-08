@@ -3,8 +3,8 @@
 (package-initialize)
 (add-to-list 'package-archives
 	     '("melpa" . "http://melpa.milkbox.net/packages/"))
-(add-to-list 'package-archives
-	     '("marmalade" . "http://marmalade-repo.org/packages/") t)
+;(add-to-list 'package-archives
+;	     '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives
 	     '("gnu" . "http://elpa.gnu.org/packages/"))
 
@@ -15,7 +15,7 @@
 
 ;; make more packages available with the package installer
 (setq to-install
-      '(python-mode cl-lib yasnippet jedi auto-complete autopair find-file-in-repository exec-path-from-shell magit auctex htmlize org emacs-eclim gtags smartscan nxml))
+      '(python-mode cl-lib yasnippet jedi auto-complete autopair find-file-in-repository exec-path-from-shell magit auctex htmlize org emacs-eclim gtags smartscan nxml git-commit))
 
 (mapc 'install-if-needed to-install)
 

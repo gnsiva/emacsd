@@ -3,7 +3,10 @@ auto-save-list/*
 eshell/*
 session.*
 elpa/*
-xkcd
-ido.last
 ac-comphist.dat
-.emacs.desktop
+ido.last
+.emacs.desktop*
+xkcd
+emacs-config.el
+.emacs-config.org.swp
+request/*

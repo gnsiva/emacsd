@@ -1,6 +1,6 @@
 (require 'org)
 (require 'org-install)
-(require 'org-html)
+(require 'ox-html)
 
 ;; ================================================================
 ;; Running code inside org mode
@@ -33,12 +33,13 @@
 ; pip has it too
 
 ;; LaTeX
-(require 'org-latex)
+(require 'ox-latex)
 (unless (boundp 'org-export-latex-classes)
   (setq org-export-latex-classes nil))
 
 (setq org-export-latex-listings 'minted)
-(add-to-list 'org-export-latex-packages-alist '("" "minted"))
+;; TODO (add-to-list 'org-export-latex-packages-alist '("" "minted"))
+
 ; syntax colouring for html at least (and in the buffer)
 (setq org-src-fontify-natively t)
 
@@ -51,7 +52,7 @@
 
 ; See part three of this:
 ; http://orgmode.org/worg/org-tutorials/org-latex-export.html
-(add-to-list 'org-export-latex-classes
+(add-to-list 'org-latex-classes
              '("myarticle"
 "\\documentclass[a4paper,11pt]{article}
 \\usepackage{lmodern}
@@ -70,7 +71,7 @@
                ("\\paragraph{%s}" . "\\paragraph*{%s}")
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
  
-(add-to-list 'org-export-latex-classes
+(add-to-list 'org-latex-classes
              '("acs"
 "\\documentclass[journal=ancham,manuscript=article,layout=twocolumn]{achemso}
 \\usepackage{lmodern}
@@ -84,7 +85,7 @@
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
 
-(add-to-list 'org-export-latex-classes
+(add-to-list 'org-latex-classes
              '("test"
 "\\documentclass[a4paper, twoside]{article}
 \\usepackage[fontsize=13pt]{scrextend}
@@ -112,7 +113,7 @@
 
 ;; ================================================================
 ;; Actual thesis format
-(add-to-list 'org-export-latex-classes
+(add-to-list 'org-latex-classes
              '("thesis"
 "\\documentclass[a4paper, twoside]{book}
 \\usepackage[fontsize=13pt]{scrextend}
@@ -226,7 +227,7 @@
                ("\\paragraph{%s}" . "\\paragraph*{%s}")))
 
 
-(add-to-list 'org-export-latex-classes
+(add-to-list 'org-latex-classes
              '("corrections"
 "
 %\\documentclass[12pt]{article}
@@ -254,7 +255,6 @@
 
 
 (require 'org)
-  (require 'org-latex)
   ;; (require 'ox-latex)
   (setq org-latex-packages-alist 
         (quote (("" "color" t) ("" "minted" t) ("" "parskip" t))))
@@ -325,3 +325,7 @@
 ;;     (flyspell-mode 1)))
 
 (setq flyspell-issue-message-flag nil)
+
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)

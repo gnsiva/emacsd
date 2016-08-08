@@ -1,4 +1,4 @@
-(add-to-list 'load-path "~/.emacs.d/")
+;;(add-to-list 'load-path "~/.emacs.d/")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Files to automatically load into a buffer
@@ -10,7 +10,12 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; General
-(setq visible-bell t)
+;;(setq visible-bell t)
+(setq visible-bell nil)
+(setq ring-bell-function (lambda ()
+   (invert-face 'mode-line)
+   (run-with-timer 0.1 nil 'invert-face 'mode-line)))
+
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (transient-mark-mode 1)
@@ -64,8 +69,8 @@
 (if (equal system-name "lettie")
     (set-frame-font "Ubuntu Mono-11" nil t))
 
-(if (equal system-name "anake")
-    (set-frame-font "Ubuntu Mono-11" nil t))
+;; (if (equal system-name "anake")
+;;     (set-frame-font "Ubuntu Mono-11" nil t))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; eshell

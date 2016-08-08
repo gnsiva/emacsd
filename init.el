@@ -1,80 +1,48 @@
-(load "~/.emacs.d/org-mode-gs.el")
-(load "~/.emacs.d/shortcuts-gs.el")
-(load "~/.emacs.d/functions-gs.el")
-(load "~/.emacs.d/packages-gs.el")
-(load "~/.emacs.d/general-gs.el")
-(load "~/.emacs.d/paths-gs.el")
-(load "~/.emacs.d/python-gs.el")
+;;; Begin initialization
+;; Turn off mouse interface early in startup to avoid momentary display
+(when window-system
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+  (tooltip-mode -1))
 
-(load "~/.emacs.d/java-gs.el")
-
-
-;; Remember open buffers when reopening
-(desktop-save-mode 1)
-(find-file "~/.emacs.d/init.el")
-
-(defun org-export-region-to-pdf ()
-  (interactive)
-  (kill-ring-save)
-  (switch-to-buffer (make-temp-name "tempExport"))
-  ;; (yank)
-  (org-mode)
-) 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (wombat)))
- '(org-agenda-files (quote ("~/Dropbox/workspaces/Challenger/Challenger.org")))
- '(smtpmail-smtp-server "smtp.gmail.com")
- '(smtpmail-smtp-service 25)
- '(uniquify-buffer-name-style (quote post-forward) nil (uniquify)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
-;; (setenv "PYTHONPATH" "~/Challenger/python; ~/Amphitrite/")
+(setq inhibit-startup-message t)
 
 
+;;; Set up package
+;; (require 'package)
+;; (add-to-list 'package-archives
+;;              '("melpa" . "http://melpa.org/packages/") t)
+;; (package-initialize)
+;; There are extra package repos in the archived packages-gs.el file
+(require 'package)
+(package-initialize)
 
-;; ================================================================
-;; Extra stuff from youtube presentation which should be moved
-;; (ac-config-default)
-(setq ac-show-menu-immediately-on-auto-complete t)
+(setq package-archives '(("melpa" . "http://melpa.org/packages/")
+			 ("marmalade" . "http://marmalade-repo.org/packages/")
+			 ("gnu" . "http://elpa.gnu.org/packages/")))
+(setq package-check-signature nil)
+(package-refresh-contents)
 
-;; projectile (need to add install bit)
-;; (require 'projectile)
-;; (projectile-global-mode)
 
-;; Jedi setup
-;; You only need to install pip and virtualenv to use this and it installs jedi and epc for you
-;; M-x jedi:install-server
-; also had this line which I don't know the purpose of
-; it adds jedi to the autocomplete sources list, but I think I already have something for that
-;; (add-to-list 'ac-sources 'ac-source-jedi-direct)
+;;; Install use-package if not installed
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
-;; add jedi:server-args for showing what your projects are
-; C-? v jedi:server-args tells you how to set this up
-;; finding a project --sys-path (use this to tell it where your projects are)
+;; From use-package README
+(eval-when-compile
+  (require 'use-package))
+(require 'diminish)                ;; if you use :diminish
+(require 'bind-key)
+;; (setq use-package-verbose t)
 
-;; autofind a project root
-;; (defvar jedi-config:vcs-root-sentinel ".git")
+;; TODO maybe want to remove this
+(server-start) 
 
-; incomplete
-;; (defun get-project-root (buf repo-type init-file))
+;; Load my emacs config file
+(org-babel-load-file (concat user-emacs-directory "emacs-config.org"))
 
-(setq jedi:complete-on-dot t)
 
-;; should look at this to get this whole thing to work properly
-;; https://github.com/wernerandrew/jedi-starter/blob/master/jedi-starter.el
-; Also downloaded it to ~/Programs on lettie
-
-; have a look at ido-vertical-mode 
-
-(set-cursor-color "Firebrick1")
-(put 'downcase-region 'disabled nil)
-(put 'upcase-region 'disabled nil)
+; had to move this to init.el because it is overwritten
+(set-cursor-color "Royal Blue") 
