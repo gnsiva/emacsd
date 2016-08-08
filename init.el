@@ -17,12 +17,11 @@
 ;; There are extra package repos in the archived packages-gs.el file
 (require 'package)
 (package-initialize)
-(add-to-list 'package-archives
-	     '("melpa" . "http://melpa.org/packages/"))
-;(add-to-list 'package-archives
-;	     '("marmalade" . "http://marmalade-repo.org/packages/") t)
-(add-to-list 'package-archives
-	     '("gnu" . "http://elpa.gnu.org/packages/"))
+
+(setq package-archives '(("melpa" . "http://melpa.org/packages/")
+			 ("marmalade" . "http://marmalade-repo.org/packages/")
+			 ("gnu" . "http://elpa.gnu.org/packages/")))
+
 (package-refresh-contents)
 
 

@@ -8,3 +8,5 @@ ido.last
 .emacs.desktop*
 xkcd
 emacs-config.el
+.emacs-config.org.swp
+request/*

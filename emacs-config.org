@@ -109,6 +109,53 @@ Installing this package was giving me problems with startup on the mac, so have 
    ac-candidate-limit 20)
 
 #+END_SRC
+
+* Evil mode
+The following configuration allows me to use evil mode and emacs together properly.
+
+Normally evil mode keeps you permanently in vim land. This function toggles on and off evil mode so that essentially when you are in vim insert mode, you have full emacs bindings. This allows me to only have to use vim when I want to, and it doesn't screw up the rest of my emacs configuration.
+
+To toggle in and out of vim use M-u, though I plan on changing this. Another issue is that pressing 'i' when in evil mode activates the vim insert mode instead of going back to emacs. Emacs doesn't seem to like setting C-[ to a key, so that's probably something to look into.
+
+Source:
+http://makble.com/how-to-toggle-evil-mode-in-emacs
+
+#+BEGIN_SRC emacs-lisp
+  (use-package evil
+    :ensure t)
+
+  (defun toggle-evilmode ()
+    (interactive)
+    (if (bound-and-true-p evil-local-mode)
+      (progn
+        ; go emacs
+        (evil-local-mode (or -1 1))
+        (undo-tree-mode (or -1 1))
+        (set-variable 'cursor-type 'bar)
+      )
+      (progn
+        ; go evil
+        (evil-local-mode (or 1 1))
+        (set-variable 'cursor-type 'box)
+      )
+    )
+  )
+   
+  (global-set-key (kbd "M-u") 'toggle-evilmode)
+
+  (use-package powerline
+    :ensure t
+    :config
+    (require 'powerline)
+    (powerline-center-theme)) 
+
+  ;; (use-package powerline-evil
+  ;;   :ensure t
+  ;;   :config
+  ;;   (require 'powerline-evil)
+  ;;   (powerline-evil-vim-theme))
+
+#+END_SRC
 * Org mode
 ** requires
 #+BEGIN_SRC emacs-lisp
@@ -439,94 +486,94 @@ This is the list of languages I want to be able to use in org-mode code blocks.
 #+END_SRC
 * TODO Shortcuts
 #+BEGIN_SRC emacs-lisp
-;; Key bindings
+  ;; Key bindings
 
-(setq x-super-keysym 'alt)
+  (setq x-super-keysym 'alt)
 
-; Changing arrow key functionality to scrolling
-(global-set-key [up] (lambda () (interactive) (scroll-down 10)))
-(global-set-key [down] (lambda () (interactive) (scroll-up 10)))
-(global-set-key [left] (lambda () (interactive) (scroll-right tab-width t)))
-(global-set-key [right] (lambda () (interactive) (scroll-left tab-width t)))
+  ; Changing arrow key functionality to scrolling
+  (global-set-key [up] (lambda () (interactive) (scroll-down 10)))
+  (global-set-key [down] (lambda () (interactive) (scroll-up 10)))
+  (global-set-key [left] (lambda () (interactive) (scroll-right tab-width t)))
+  (global-set-key [right] (lambda () (interactive) (scroll-left tab-width t)))
 
-; moving between windows
-(windmove-default-keybindings 'control)
-(setq windmove-wrap-around t)
+  ; moving between windows
+  (windmove-default-keybindings 'control)
+  (setq windmove-wrap-around t)
 
-; backwards delete
-(global-set-key "\C-h" 'delete-backward-char)
-(global-set-key (kbd "C-?") 'help-command)
+  ; backwards delete
+  (global-set-key "\C-h" 'delete-backward-char)
+  (global-set-key (kbd "C-?") 'help-command)
 
-;; ; disable return and backspace
-;; (global-set-key (kbd "<return>") (lambda () ))
-;; (global-set-key (kbd "<backspace>") (lambda () ))
+  ;; ; disable return and backspace
+  ;; (global-set-key (kbd "<return>") (lambda () ))
+  ;; (global-set-key (kbd "<backspace>") (lambda () ))
 
-; search and replace
-;; (global-set-key "\C-\M-s" 'search-forward-regexp)
+  ; search and replace
+  ;; (global-set-key "\C-\M-s" 'search-forward-regexp)
 
-(global-set-key [f1] 'compile)
-(global-set-key [f2] 'next-error)
-; eshell!!!
-(global-set-key [f3] 'eshell)
-; Standard terminal
-(global-set-key [f4] 'ansi-term)
-; ipython
-(global-set-key [f8] 'ipython-buffer)
+  (global-set-key [f1] 'compile)
+  (global-set-key [f2] 'next-error)
+  ; eshell!!!
+  (global-set-key [f3] 'eshell)
+  ; Standard terminal
+  (global-set-key [f4] 'ansi-term)
+  ; ipython
+  (global-set-key [f8] 'ipython-buffer)
 
-; Refresh buffer
-(defun revert-buffer-no-confirm ()
-    "Revert buffer without confirmation."
-    (interactive) (revert-buffer t t))
-(global-set-key [f5] 'revert-buffer-no-confirm)
+  ; Refresh buffer
+  (defun revert-buffer-no-confirm ()
+      "Revert buffer without confirmation."
+      (interactive) (revert-buffer t t))
+  (global-set-key [f5] 'revert-buffer-no-confirm)
 
-(global-set-key [f6] 'athena)
+  (global-set-key [f6] 'athena)
 
-; Macro quick button
-(global-set-key [f7] 'kmacro-end-and-call-macro)
+  ; Macro quick button
+  (global-set-key [f7] 'kmacro-end-and-call-macro)
 
-;; [f8] is used by reftex (org mode)
+  ;; [f8] is used by reftex (org mode)
 
-; On Mac use cmd key as meta (as in M-x)
-(when (string= system-type "darwin")
-  (setq x-super-keysym 'meta))
-
-
-; org-mode
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
-; TODO make these part of a hook, they only do stuff when in org-mode
-(global-set-key "\M-M" 'org-insert-todo-heading)
-(global-set-key "\M-p" 'org-up-element)
-(global-set-key "\M-n" 'org-forward-element)
+  ; On Mac use cmd key as meta (as in M-x)
+  (when (string= system-type "darwin")
+    (setq x-super-keysym 'meta))
 
 
-
-;;; Mac Os X stuff
-;; mac cmd key as Meta (also fixes ubuntu to make meta key alt apparently)
-(setq mac-option-key-is-meta nil
-      mac-command-key-is-meta t
-      mac-command-modifier 'meta
-      mac-option-modifier 'none)
-; separate tutorial [[http://mcclanahoochie.com/blog/2011/08/remapping-macbook-pro-keys-for-emacs/][separate tutorial]] 
-
-; Go to a specific line number in the file
-(global-set-key "\C-x\C-g" 'goto-line)
-
-; Comment and uncomment selected regions
-(global-set-key (kbd "C-.") 'comment-region)
-(global-set-key (kbd "C-,") 'uncomment-region)
+  ; org-mode
+  (global-set-key "\C-cl" 'org-store-link)
+  (global-set-key "\C-ca" 'org-agenda)
+  ; TODO make these part of a hook, they only do stuff when in org-mode
+  (global-set-key "\M-M" 'org-insert-todo-heading)
+  (global-set-key "\M-p" 'org-up-element)
+  (global-set-key "\M-n" 'org-forward-element)
 
 
-;; Shortcuts/Aliases 
-(defalias 'eb 'eval-buffer)
-(defalias 'er 'eval-region)
-(defalias 'rb 'revert-buffer)
-(defalias 'rep 'replace-string) 
-(defalias 'qrep 'query-replace) 
-(defalias 'erep 'replace-regexp)
-(defalias 'qerep 'query-replace-regexp)
-(defalias 'esearch 'isearch-forward-regexp)
-(defalias 'ff 'find-file)
+
+  ;;; Mac Os X stuff
+  ;; mac cmd key as Meta (also fixes ubuntu to make meta key alt apparently)
+  (setq mac-option-key-is-meta nil
+        mac-command-key-is-meta t
+        mac-command-modifier 'meta
+        mac-option-modifier 'none)
+  ; separate tutorial [[http://mcclanahoochie.com/blog/2011/08/remapping-macbook-pro-keys-for-emacs/][separate tutorial]] 
+
+  ; Go to a specific line number in the file
+  (global-set-key "\C-x\C-g" 'goto-line)
+
+  ; Comment and uncomment selected regions
+  (global-set-key (kbd "C-.") 'comment-region)
+  (global-set-key (kbd "C-,") 'uncomment-region)
+
+
+  ;; Shortcuts/Aliases 
+  (defalias 'eb 'eval-buffer)
+  (defalias 'er 'eval-region)
+  (defalias 'rb 'revert-buffer)
+  (defalias 'rep 'replace-string) 
+  (defalias 'qrep 'query-replace) 
+  (defalias 'erep 'replace-regexp)
+  (defalias 'qerep 'query-replace-regexp)
+  (defalias 'esearch 'isearch-forward-regexp)
+  (defalias 'ff 'find-file)
 #+END_SRC
 * Functions
 #+BEGIN_SRC emacs-lisp
@@ -750,108 +797,166 @@ Ido mode is awesome, this is basically just activates it. I gave it its own head
     (exec-path-from-shell-copy-env "PYTHONPATH")
     (exec-path-from-shell-copy-env "PATH"))
 #+END_SRC
-* TODO Python
+* Python
+** Old configuration
+#+BEGIN_SRC emacs-lisp :exports none
+
+  ;; ;; Setup
+  ;; ; sudo apt-get install pylint python-virtualenv
+  ;; ; sudo pip install jedi
+  ;; ; sudo pip install epc
+  ;; ; sudo pip install virtualenv
+
+  ;; ;; There is stuff needed from the packages-gs.el file
+
+  ;; ;; ;; Python mode settings
+  ;; (require 'python)
+
+  ;; (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
+
+  ;; (setq py-electric-colon-active t)
+
+  ;; ;(require 'epc)
+  ;; (require 'jedi)
+
+  ;; ;; Have to use system-type as for some reason it still uses the ubuntu name in mac on the mba
+  ;; (if (equal system-type "darwin")
+  ;;     (setq jedi:server-command
+  ;;           '("/Library/Frameworks/Python.framework/Versions/Current/bin/python" "/Users/ganesh/.emacs.d/elpa/jedi-20130714.1415/jediepcserver.py")))
+
+
+  ;; (add-hook 'python-hook
+  ;;           (lambda ()
+  ;;             (jedi:setup)
+  ;;             (jedi:ac-setup)
+  ;;             (local-set-key (kbd "M-?") 'jedi:show-doc)
+  ;;             (local-set-key (kbd "A-SPC") 'jedi:complete)
+  ;;             (local-set-key (kbd "M-.") 'jedi:goto-definition)
+  ;;             (local-set-key (kbd "M-,") 'jedi:goto-definition-pop-marker)
+  ;;             (local-set-key (kbd "M-/") 'jedi:get-in-function-call)))
+
+
+  ;; ;; Flymake settings for Python
+  ;; (defun flymake-python-init ()
+  ;;   (let* ((temp-file (flymake-init-create-temp-buffer-copy
+  ;;                      'flymake-create-temp-inplace))
+  ;;          (local-file (file-relative-name
+  ;;                       temp-file
+  ;;                       (file-name-directory buffer-file-name))))
+  ;;     ;(list "epylint" (list local-file))
+  ;; ))
+
+  ;; (defun flymake-activate ()
+  ;;   "Activates flymake when real buffer and you have write access"
+  ;;   (if (and
+  ;;        (buffer-file-name)
+  ;;        (file-writable-p buffer-file-name))
+  ;;       (progn
+  ;;         (flymake-mode t)
+  ;;         ;; this is necessary since there is no flymake-mode-hook...
+  ;;         (local-set-key (kbd "C-c n") 'flymake-goto-next-error)
+  ;;         (local-set-key (kbd "C-c p") 'flymake-goto-prev-error))))
+
+  ;; (defun ca-flymake-show-help ()
+  ;;   (when (get-char-property (point) 'flymake-overlay)
+  ;;     (let ((help (get-char-property (point) 'help-echo)))
+  ;;       (if help (message "%s" help)))))
+
+  ;; (add-hook 'post-command-hook 'ca-flymake-show-help)
+
+  ;; (add-hook 'python-hook 'flymake-activate)
+  ;; (add-hook 'python-hook 'auto-complete-mode)
+  ;; (add-hook 'python-hook 'autopair-mode)
+  ;; (add-hook 'python-hook 'yas-minor-mode)
+
+
+  ;; ;; ================================================================
+  ;; ;; All the stuff you commented out to switch to python.el from python-mode.el
+  ;; ;; the reason was that htmlize.el didn't work with python-mode.el
+
+  ;; ;; TODO - uncomment this once you get python.el working properly
+
+  ;; ;; (require 'python-mode)
+
+  ;; ;; (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
+
+  ;; ;; (add-hook 'python-mode-hook
+  ;; ;;        (lambda ()
+  ;; ;;          (jedi:setup)
+  ;; ;;          (jedi:ac-setup)
+  ;; ;;             (local-set-key (kbd "M-?") 'jedi:show-doc)
+  ;; ;;             (local-set-key (kbd "A-SPC") 'jedi:complete)
+  ;; ;;             (local-set-key (kbd "M-.") 'jedi:goto-definition)
+  ;; ;;             (local-set-key (kbd "M-,") 'jedi:goto-definition-pop-marker)
+  ;; ;;             (local-set-key (kbd "M-/") 'jedi:get-in-function-call)))
+
+
+  ;; ;; ;; I couldn't work out how to hack this to work with python.el (not that I really tried)
+  ;; ;; (add-to-list 'flymake-allowed-file-name-masks
+  ;; ;;              '("\\.py\\'" flymake-python-init))
+
+  ;; ;; (add-hook 'python-mode-hook 'flymake-activate)
+  ;; ;; (add-hook 'python-mode-hook 'auto-complete-mode)
+  ;; ;; (add-hook 'python-mode-hook 'autopair-mode)
+  ;; ;; (add-hook 'python-mode-hook 'yas-minor-mode)
+
+#+END_SRC
+** Elpy configuration
+*** Prerequisites
+#+BEGIN_SRC bash
+sudo pip install jedi
+sudo pip install virtualenv
+#+END_SRC
+*** python config
+Source:
+https://realpython.com/blog/python/emacs-the-best-python-editor/
+
+The option =(elpa-use-ipython)= runs your programs in ipython instead of python. It opens a REPL. You launch it with =C-c C-c=
+
+Elpy can use rope or jedi as the backend for analysis of python sources. To set it to jedi use =(setq elpy-rpc-backend "jedi")=. If you are having trouble with jedi, it is probably a good idea to switch to rope.
+
 #+BEGIN_SRC emacs-lisp
+  (use-package elpy
+    :ensure t
+    :config
+    (elpy-enable)
+    (elpy-use-ipython)
+    (setq ansi-color-for-comint-mode t) ;; needed to fix weird formatting issues with ipython
+    (setq elpy-rpc-backend "jedi")
+    (local-set-key (kbd "C-?") 'help-command)
+    (windmove-default-keybindings 'control))
 
-;; Setup
-; sudo apt-get install pylint python-virtualenv
-; sudo pip install jedi
-; sudo pip install epc
-; sudo pip install virtualenv
+  ;; On the fly syntax highlighting
+  (use-package flycheck
+    :ensure t)
 
-;; There is stuff needed from the packages-gs.el file
+  (when (require 'flycheck nil t)
+    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+    (add-hook 'elpy-mode-hook 'flycheck-mode))
+#+END_SRC
 
-;; ;; Python mode settings
-(require 'python)
+*** jupyter notebook integration
+From here you can connect to jupyter, even the AWS ones!
+It actually has support for multiple sheets, you should probably look into this.
 
-(add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
+To get started: 
+=M-x ein:notebooklist-open= 
 
-(setq py-electric-colon-active t)
+Commands cheat sheet
+| Shortcut | Command             |
+|----------+---------------------|
+| C-c C-c  | Run cell            |
+| ???????  | Run all cells       |
+| C-c C-n  | Go to next cell     |
+| C-c C-p  | Go to previous cell |
 
-;(require 'epc)
-(require 'jedi)
+The documentation is here:
+https://tkf.github.io/emacs-ipython-notebook/
 
-;; Have to use system-type as for some reason it still uses the ubuntu name in mac on the mba
-(if (equal system-type "darwin")
-    (setq jedi:server-command
-	  '("/Library/Frameworks/Python.framework/Versions/Current/bin/python" "/Users/ganesh/.emacs.d/elpa/jedi-20130714.1415/jediepcserver.py")))
-
-
-(add-hook 'python-hook
-	  (lambda ()
-	    (jedi:setup)
-	    (jedi:ac-setup)
-            (local-set-key (kbd "M-?") 'jedi:show-doc)
-            (local-set-key (kbd "A-SPC") 'jedi:complete)
-            (local-set-key (kbd "M-.") 'jedi:goto-definition)
-            (local-set-key (kbd "M-,") 'jedi:goto-definition-pop-marker)
-            (local-set-key (kbd "M-/") 'jedi:get-in-function-call)))
-
-
-;; Flymake settings for Python
-(defun flymake-python-init ()
-  (let* ((temp-file (flymake-init-create-temp-buffer-copy
-                     'flymake-create-temp-inplace))
-         (local-file (file-relative-name
-                      temp-file
-                      (file-name-directory buffer-file-name))))
-    ;(list "epylint" (list local-file))
-))
-
-(defun flymake-activate ()
-  "Activates flymake when real buffer and you have write access"
-  (if (and
-       (buffer-file-name)
-       (file-writable-p buffer-file-name))
-      (progn
-        (flymake-mode t)
-        ;; this is necessary since there is no flymake-mode-hook...
-        (local-set-key (kbd "C-c n") 'flymake-goto-next-error)
-        (local-set-key (kbd "C-c p") 'flymake-goto-prev-error))))
-
-(defun ca-flymake-show-help ()
-  (when (get-char-property (point) 'flymake-overlay)
-    (let ((help (get-char-property (point) 'help-echo)))
-      (if help (message "%s" help)))))
-
-(add-hook 'post-command-hook 'ca-flymake-show-help)
-
-(add-hook 'python-hook 'flymake-activate)
-(add-hook 'python-hook 'auto-complete-mode)
-(add-hook 'python-hook 'autopair-mode)
-(add-hook 'python-hook 'yas-minor-mode)
-
-
-;; ================================================================
-;; All the stuff you commented out to switch to python.el from python-mode.el
-;; the reason was that htmlize.el didn't work with python-mode.el
-
-;; TODO - uncomment this once you get python.el working properly
-
-;; (require 'python-mode)
-
-;; (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
-
-;; (add-hook 'python-mode-hook
-;; 	  (lambda ()
-;; 	    (jedi:setup)
-;; 	    (jedi:ac-setup)
-;;             (local-set-key (kbd "M-?") 'jedi:show-doc)
-;;             (local-set-key (kbd "A-SPC") 'jedi:complete)
-;;             (local-set-key (kbd "M-.") 'jedi:goto-definition)
-;;             (local-set-key (kbd "M-,") 'jedi:goto-definition-pop-marker)
-;;             (local-set-key (kbd "M-/") 'jedi:get-in-function-call)))
-
-
-;; ;; I couldn't work out how to hack this to work with python.el (not that I really tried)
-;; (add-to-list 'flymake-allowed-file-name-masks
-;;              '("\\.py\\'" flymake-python-init))
-
-;; (add-hook 'python-mode-hook 'flymake-activate)
-;; (add-hook 'python-mode-hook 'auto-complete-mode)
-;; (add-hook 'python-mode-hook 'autopair-mode)
-;; (add-hook 'python-mode-hook 'yas-minor-mode)
-
+#+BEGIN_SRC emacs-lisp
+    ;; Emacs ipython notebook
+    (use-package ein
+      :ensure t)
 #+END_SRC
 * TODO Java
 #+BEGIN_SRC emacs-lisp
@@ -1019,6 +1124,8 @@ Remember you can run locate from within Emacs with:
 
 =M-x locate=
 ** TODO SSH directly to AWS master given just the cluster name
+** TODO powerline-evil
+Evil mode for powerline doesn't seem to be working you should look into this. 
 ** Dired - default behaviour is confusing?
 I previously added the following, not entirely sure what it does, so am going to remove it for now.
 
