@@ -8,7 +8,7 @@
 
 (setq inhibit-startup-message t)
 
-
+;(require 'let-alist)
 ;;; Set up package
 ;; (require 'package)
 ;; (add-to-list 'package-archives

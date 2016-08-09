@@ -64,9 +64,15 @@ Installing this package was giving me problems with startup on the mac, so have 
 
   (mapc 'install-if-needed to-install)
 
-  (require 'magit)
-  (global-set-key "\C-xg" 'magit-status)
-  (global-set-key [f7] 'find-file-in-repository)
+  (use-package git-commit
+    :ensure t)
+
+  (use-package magit
+    :ensure t
+    :config
+    (global-set-key "\C-xg" 'magit-status)
+    (global-set-key [f7] 'find-file-in-repository))
+
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ; These parts should be moved
@@ -770,7 +776,7 @@ I don't currently really use this, so autostart is commented out. I imagine I wi
 ** Ido mode
 Ido mode is awesome, this is basically just activates it. I gave it its own heading as I want to expand on this in the future.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 (ido-mode t)
 (setq ido-everywhere 1)
 (setq ido-enable-flex-matching t)
@@ -778,6 +784,22 @@ Ido mode is awesome, this is basically just activates it. I gave it its own head
 ; not sure what this does, if problems, turn off
 (setq ido-create-new-buffer 'always)
 #+END_SRC
+** Helm
+Trying this out instead of ido.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package helm
+    :ensure t)
+
+  (use-package helm-descbinds
+    :ensure t
+    :config
+    (fset 'describe-bindings 'helm-descbinds)
+    (helm-mode 1)
+    (global-set-key (kbd "C-c h") 'helm-mini)
+    (provide 'helm-settings))
+#+END_SRC
+
 ** Files to preopen
 #+BEGIN_SRC emacs-lisp
 (find-file "~/.emacs.d/emacs-config.org")
@@ -799,36 +821,91 @@ Ido mode is awesome, this is basically just activates it. I gave it its own head
 #+END_SRC
 * Python
 ** Old configuration
-#+BEGIN_SRC emacs-lisp :exports none
+#+BEGIN_SRC emacs-lisp :tangle no
 
-  ;; ;; Setup
-  ;; ; sudo apt-get install pylint python-virtualenv
-  ;; ; sudo pip install jedi
-  ;; ; sudo pip install epc
-  ;; ; sudo pip install virtualenv
+  ;; Setup
+  ; sudo apt-get install pylint python-virtualenv
+  ; sudo pip install jedi
+  ; sudo pip install epc
+  ; sudo pip install virtualenv
 
-  ;; ;; There is stuff needed from the packages-gs.el file
+  ;; There is stuff needed from the packages-gs.el file
 
-  ;; ;; ;; Python mode settings
-  ;; (require 'python)
+  ;; ;; Python mode settings
+  (require 'python)
+
+  (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
+
+  (setq py-electric-colon-active t)
+
+  ;(require 'epc)
+  (require 'jedi)
+
+  ;; Have to use system-type as for some reason it still uses the ubuntu name in mac on the mba
+  (if (equal system-type "darwin")
+      (setq jedi:server-command
+            '("/Library/Frameworks/Python.framework/Versions/Current/bin/python" "/Users/ganesh/.emacs.d/elpa/jedi-20130714.1415/jediepcserver.py")))
+
+
+  (add-hook 'python-hook
+            (lambda ()
+              (jedi:setup)
+              (jedi:ac-setup)
+              (local-set-key (kbd "M-?") 'jedi:show-doc)
+              (local-set-key (kbd "A-SPC") 'jedi:complete)
+              (local-set-key (kbd "M-.") 'jedi:goto-definition)
+              (local-set-key (kbd "M-,") 'jedi:goto-definition-pop-marker)
+              (local-set-key (kbd "M-/") 'jedi:get-in-function-call)))
+
+
+  ;; Flymake settings for Python
+  (defun flymake-python-init ()
+    (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                       'flymake-create-temp-inplace))
+           (local-file (file-relative-name
+                        temp-file
+                        (file-name-directory buffer-file-name))))
+      ;(list "epylint" (list local-file))
+  ))
+
+  (defun flymake-activate ()
+    "Activates flymake when real buffer and you have write access"
+    (if (and
+         (buffer-file-name)
+         (file-writable-p buffer-file-name))
+        (progn
+          (flymake-mode t)
+          ;; this is necessary since there is no flymake-mode-hook...
+          (local-set-key (kbd "C-c n") 'flymake-goto-next-error)
+          (local-set-key (kbd "C-c p") 'flymake-goto-prev-error))))
+
+  (defun ca-flymake-show-help ()
+    (when (get-char-property (point) 'flymake-overlay)
+      (let ((help (get-char-property (point) 'help-echo)))
+        (if help (message "%s" help)))))
+
+  (add-hook 'post-command-hook 'ca-flymake-show-help)
+
+  (add-hook 'python-hook 'flymake-activate)
+  (add-hook 'python-hook 'auto-complete-mode)
+  (add-hook 'python-hook 'autopair-mode)
+  (add-hook 'python-hook 'yas-minor-mode)
+
+
+  ;; ================================================================
+  ;; All the stuff you commented out to switch to python.el from python-mode.el
+  ;; the reason was that htmlize.el didn't work with python-mode.el
+
+  ;; TODO - uncomment this once you get python.el working properly
+
+  ;; (require 'python-mode)
 
   ;; (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
 
-  ;; (setq py-electric-colon-active t)
-
-  ;; ;(require 'epc)
-  ;; (require 'jedi)
-
-  ;; ;; Have to use system-type as for some reason it still uses the ubuntu name in mac on the mba
-  ;; (if (equal system-type "darwin")
-  ;;     (setq jedi:server-command
-  ;;           '("/Library/Frameworks/Python.framework/Versions/Current/bin/python" "/Users/ganesh/.emacs.d/elpa/jedi-20130714.1415/jediepcserver.py")))
-
-
-  ;; (add-hook 'python-hook
-  ;;           (lambda ()
-  ;;             (jedi:setup)
-  ;;             (jedi:ac-setup)
+  ;; (add-hook 'python-mode-hook
+  ;;        (lambda ()
+  ;;          (jedi:setup)
+  ;;          (jedi:ac-setup)
   ;;             (local-set-key (kbd "M-?") 'jedi:show-doc)
   ;;             (local-set-key (kbd "A-SPC") 'jedi:complete)
   ;;             (local-set-key (kbd "M-.") 'jedi:goto-definition)
@@ -836,77 +913,32 @@ Ido mode is awesome, this is basically just activates it. I gave it its own head
   ;;             (local-set-key (kbd "M-/") 'jedi:get-in-function-call)))
 
 
-  ;; ;; Flymake settings for Python
-  ;; (defun flymake-python-init ()
-  ;;   (let* ((temp-file (flymake-init-create-temp-buffer-copy
-  ;;                      'flymake-create-temp-inplace))
-  ;;          (local-file (file-relative-name
-  ;;                       temp-file
-  ;;                       (file-name-directory buffer-file-name))))
-  ;;     ;(list "epylint" (list local-file))
-  ;; ))
+  ;; ;; I couldn't work out how to hack this to work with python.el (not that I really tried)
+  ;; (add-to-list 'flymake-allowed-file-name-masks
+  ;;              '("\\.py\\'" flymake-python-init))
 
-  ;; (defun flymake-activate ()
-  ;;   "Activates flymake when real buffer and you have write access"
-  ;;   (if (and
-  ;;        (buffer-file-name)
-  ;;        (file-writable-p buffer-file-name))
-  ;;       (progn
-  ;;         (flymake-mode t)
-  ;;         ;; this is necessary since there is no flymake-mode-hook...
-  ;;         (local-set-key (kbd "C-c n") 'flymake-goto-next-error)
-  ;;         (local-set-key (kbd "C-c p") 'flymake-goto-prev-error))))
-
-  ;; (defun ca-flymake-show-help ()
-  ;;   (when (get-char-property (point) 'flymake-overlay)
-  ;;     (let ((help (get-char-property (point) 'help-echo)))
-  ;;       (if help (message "%s" help)))))
-
-  ;; (add-hook 'post-command-hook 'ca-flymake-show-help)
-
-  ;; (add-hook 'python-hook 'flymake-activate)
-  ;; (add-hook 'python-hook 'auto-complete-mode)
-  ;; (add-hook 'python-hook 'autopair-mode)
-  ;; (add-hook 'python-hook 'yas-minor-mode)
-
-
-  ;; ;; ================================================================
-  ;; ;; All the stuff you commented out to switch to python.el from python-mode.el
-  ;; ;; the reason was that htmlize.el didn't work with python-mode.el
-
-  ;; ;; TODO - uncomment this once you get python.el working properly
-
-  ;; ;; (require 'python-mode)
-
-  ;; ;; (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
-
-  ;; ;; (add-hook 'python-mode-hook
-  ;; ;;        (lambda ()
-  ;; ;;          (jedi:setup)
-  ;; ;;          (jedi:ac-setup)
-  ;; ;;             (local-set-key (kbd "M-?") 'jedi:show-doc)
-  ;; ;;             (local-set-key (kbd "A-SPC") 'jedi:complete)
-  ;; ;;             (local-set-key (kbd "M-.") 'jedi:goto-definition)
-  ;; ;;             (local-set-key (kbd "M-,") 'jedi:goto-definition-pop-marker)
-  ;; ;;             (local-set-key (kbd "M-/") 'jedi:get-in-function-call)))
-
-
-  ;; ;; ;; I couldn't work out how to hack this to work with python.el (not that I really tried)
-  ;; ;; (add-to-list 'flymake-allowed-file-name-masks
-  ;; ;;              '("\\.py\\'" flymake-python-init))
-
-  ;; ;; (add-hook 'python-mode-hook 'flymake-activate)
-  ;; ;; (add-hook 'python-mode-hook 'auto-complete-mode)
-  ;; ;; (add-hook 'python-mode-hook 'autopair-mode)
-  ;; ;; (add-hook 'python-mode-hook 'yas-minor-mode)
+  ;; (add-hook 'python-mode-hook 'flymake-activate)
+  ;; (add-hook 'python-mode-hook 'auto-complete-mode)
+  ;; (add-hook 'python-mode-hook 'autopair-mode)
+  ;; (add-hook 'python-mode-hook 'yas-minor-mode)
 
 #+END_SRC
 ** Elpy configuration
 *** Prerequisites
-#+BEGIN_SRC bash
+#+BEGIN_SRC bash :tangle no
 sudo pip install jedi
 sudo pip install virtualenv
+sudo pip install importmagic
 #+END_SRC
+
+Maybe not needed but recommended here:
+http://chillaranand.github.io/emacs-py-ide/
+
+#+BEGIN_SRC :tangle no
+sudo pip install rope
+sudo pip install flake8
+#+END_SRC
+
 *** python config
 Source:
 https://realpython.com/blog/python/emacs-the-best-python-editor/
@@ -927,6 +959,9 @@ Elpy can use rope or jedi as the backend for analysis of python sources. To set 
     (windmove-default-keybindings 'control))
 
   ;; On the fly syntax highlighting
+  (use-package let-alist  ; this is required for flycheck
+    :ensure t)
+
   (use-package flycheck
     :ensure t)
 
@@ -959,7 +994,10 @@ https://tkf.github.io/emacs-ipython-notebook/
       :ensure t)
 #+END_SRC
 * TODO Java
-#+BEGIN_SRC emacs-lisp
+
+Not being run currently. There is some autocomplete configuration in here that should be moved out.
+
+#+BEGIN_SRC emacs-lisp :tangle no
 ;; -*- emacs-lisp -*-
 (defun tkj-insert-serial-version-uuid()
   (interactive)
