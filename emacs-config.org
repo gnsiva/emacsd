@@ -776,7 +776,7 @@ I don't currently really use this, so autostart is commented out. I imagine I wi
 ** Ido mode
 Ido mode is awesome, this is basically just activates it. I gave it its own heading as I want to expand on this in the future.
 
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp 
 (ido-mode t)
 (setq ido-everywhere 1)
 (setq ido-enable-flex-matching t)
@@ -786,8 +786,9 @@ Ido mode is awesome, this is basically just activates it. I gave it its own head
 #+END_SRC
 ** Helm
 Trying this out instead of ido.
+Update: the configuration needs work. e.g. I haven't got C-f integration with the below config.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package helm
     :ensure t)
 
