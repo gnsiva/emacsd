@@ -11,3 +11,4 @@ emacs-config.el
 .emacs-config.org.swp
 request/*
 tramp
+.org-id-locations

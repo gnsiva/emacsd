@@ -706,10 +706,10 @@ Temporarily added for the presentation
   ;;   :config
   ;;   (load-theme 'moe-dark t))
 
-  (use-package solarized-theme
-    :ensure t
-    :config
-    (load-theme 'solarized-dark t))
+  ;; (use-package solarized-theme
+  ;;   :ensure t
+  ;;   :config
+  ;;   (load-theme 'solarized-dark t))
 
 #+END_SRC
 * Fonts
