@@ -10,3 +10,4 @@ xkcd
 emacs-config.el
 .emacs-config.org.swp
 request/*
+tramp

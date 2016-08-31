@@ -136,7 +136,7 @@ http://makble.com/how-to-toggle-evil-mode-in-emacs
       (progn
         ; go emacs
         (evil-local-mode (or -1 1))
-        (undo-tree-mode (or -1 1))
+        ;(undo-tree-mode (or -1 1))
         (set-variable 'cursor-type 'bar)
       )
       (progn
@@ -163,6 +163,7 @@ http://makble.com/how-to-toggle-evil-mode-in-emacs
 
 #+END_SRC
 * Org mode
+
 ** requires
 #+BEGIN_SRC emacs-lisp
 (require 'org)
@@ -490,6 +491,19 @@ This is the list of languages I want to be able to use in org-mode code blocks.
 
 (setq flyspell-issue-message-flag nil)
 #+END_SRC
+** Fancy bullets
+#+BEGIN_SRC emacs-lisp
+  (use-package org-bullets
+    :ensure t
+    :config
+    (add-hook 'org-mode-hook
+              (lambda ()
+                (org-bullets-mode t))))
+#+END_SRC
+** Fancy arrows
+#+BEGIN_SRC emacs-lisp
+  (setq org-ellipsis "⤵")
+#+END_SRC
 * TODO Shortcuts
 #+BEGIN_SRC emacs-lisp
   ;; Key bindings
@@ -660,14 +674,15 @@ This is the list of languages I want to be able to use in org-mode code blocks.
 ** Inverted colours
 Not so much a theme, but seeing as the default colours are always spot on in emacs, the following just flips the colours in order to create a dark mode.
 
-#+BEGIN_SRC emacs-lisp
-; linux
-;; (when (string= window-system "x")
-;;   (invert-face 'default))
-; mac version
-;; (when (string= window-system "ns")
-;;   (invert-face 'default))
+#+BEGIN_SRC emacs-lisp :tangle no
+  ; linux
+   (when (string= window-system "x")
+     (invert-face 'default))
+  ; mac version
+   (when (string= window-system "ns")
+     (invert-face 'default))
 #+END_SRC
+** 
 * Fonts
 Here I set the default font, and should be overwriting it when using the macbook pro (as it doesn't have the available font). Currently the desktop uses the same font as the default, but this may change in the future. The default works on most smaller Linux laptops as well and so will likely not change.
 
