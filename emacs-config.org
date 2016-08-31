@@ -167,7 +167,6 @@ http://makble.com/how-to-toggle-evil-mode-in-emacs
 
 #+END_SRC
 * Org mode
-
 ** requires
 #+BEGIN_SRC emacs-lisp
 (require 'org)
@@ -190,9 +189,11 @@ http://makble.com/how-to-toggle-evil-mode-in-emacs
   (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 
   ; display images inline
-  (if (display-graphic-p)
-      (org-display-inline-images t))
+  ;; (if (display-graphic-p)
+  ;;     (org-display-inline-images t))
 
+  (if (display-graphic-p)
+      (setq org-startup-with-inline-images t))
 
   (define-key global-map "\C-cl" 'org-store-link)
   (define-key global-map "\C-ca" 'org-agenda)
@@ -686,7 +687,31 @@ Not so much a theme, but seeing as the default colours are always spot on in ema
    (when (string= window-system "ns")
      (invert-face 'default))
 #+END_SRC
-** 
+** Org mode working theme
+Temporarily added for the presentation
+
+#+BEGIN_SRC emacs-lisp
+  (use-package color-theme
+    :ensure t
+    :config
+    (color-theme-initialize))
+
+  ;; (use-package zenburn-theme
+  ;;   :ensure t
+  ;;   :config
+  ;;   (load-theme 'zenburn t))
+
+  ;; (use-package moe-theme
+  ;;   :ensure t
+  ;;   :config
+  ;;   (load-theme 'moe-dark t))
+
+  (use-package solarized-theme
+    :ensure t
+    :config
+    (load-theme 'solarized-dark t))
+
+#+END_SRC
 * Fonts
 Here I set the default font, and should be overwriting it when using the macbook pro (as it doesn't have the available font). Currently the desktop uses the same font as the default, but this may change in the future. The default works on most smaller Linux laptops as well and so will likely not change.
 
@@ -1173,7 +1198,17 @@ Not being run currently. There is some autocomplete configuration in here that s
   (put 'upcase-region 'disabled nil)
  (desktop-save-mode 1)
 #+END_SRC
+* Final commands
+This is where to place commands that are overwritten somewhere in the configuration file and you haven't yet worked out how to stop that.
+
+Undo-tree mode is getting turned on by something, I think it is related to evil-mode. Turning it off here
+#+BEGIN_SRC emacs-lisp
+  (undo-tree-mode 0)
+#+END_SRC
 * Stuff to investigate in the future
+** TODO org-download - drag image straight into org-mode from browser
+If this works it will be amazing, definitely try it
+https://github.com/abo-abo/org-download
 ** TODO Occur upgrade
 An occur upgrade, occur looks for all lines matching a regex, this is supposed to be better.
 http://oremacs.com/2015/01/26/occur-dwim/
