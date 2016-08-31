@@ -17,23 +17,25 @@
 * Mac customisations
 
 #+BEGIN_SRC emacs-lisp
-(when (string-equal system-type "darwin")
-(defun open-dir-in-finder ()
-    "Open a new Finder window to the path of the current buffer"
-    (interactive)
-    (start-process "mai-open-dir-process" nil "open" "."))
-  (bind-key "C-c o f" 'open-dir-in-finder)
+  (when (string-equal system-type "darwin")
+    (defun open-dir-in-finder ()
+      "Open a new Finder window to the path of the current buffer"
+      (interactive)
+      (start-process "mai-open-dir-process" nil "open" "."))
+    (bind-key "C-c o f" 'open-dir-in-finder)
 
-  (defun open-dir-in-iterm ()
-    "Open the current directory of the buffer in iTerm."
-    (interactive)
-    (let* ((iterm-app-path "/Applications/iTerm.app")
-           (iterm-brew-path "/opt/homebrew-cask/Caskroom/iterm2/1.0.0/iTerm.app")
-           (iterm-path (if (file-directory-p iterm-app-path)
-                           iterm-app-path
-                         iterm-brew-path)))
-      (start-process "mai-open-dir-process" nil "open" "-a" iterm-path ".")))
-  (bind-key "C-c o t" 'open-dir-in-iterm))
+    (defun open-dir-in-iterm ()
+      "Open the current directory of the buffer in iTerm."
+      (interactive)
+      (let* ((iterm-app-path "/Applications/iTerm.app")
+             (iterm-brew-path "/opt/homebrew-cask/Caskroom/iterm2/1.0.0/iTerm.app")
+             (iterm-path (if (file-directory-p iterm-app-path)
+                             iterm-app-path
+                           iterm-brew-path)))
+        (start-process "mai-open-dir-process" nil "open" "-a" iterm-path ".")))
+    (bind-key "C-c o t" 'open-dir-in-iterm)
+    (custom-set-faces
+     '(default ((t (:height 140 :width normal :family "Inconsolata"))))))
 #+END_SRC
 
 * TODO Packages (disperse contents)
@@ -727,46 +729,46 @@ Install =wmctrl= and run =wmctrl -l=. This will give you a list of open windows.
 ** Should be default
 [[http://github.com/danielmai/.emacs.d/blob/master/config.org][Source for a lot of this]]
 #+BEGIN_SRC emacs-lisp
-;; Answering just 'y' or 'n' will do
-(defalias 'yes-or-no-p 'y-or-n-p)
+  ;; Answering just 'y' or 'n' will do
+  (defalias 'yes-or-no-p 'y-or-n-p)
 
-;; These functions are useful. Activate them.
-(put 'downcase-region 'disabled nil)
-(put 'upcase-region 'disabled nil)
-(put 'narrow-to-region 'disabled nil)
-(put 'dired-find-alternate-file 'disabled nil)
+  ;; These functions are useful. Activate them.
+  (put 'downcase-region 'disabled nil)
+  (put 'upcase-region 'disabled nil)
+  (put 'narrow-to-region 'disabled nil)
+  (put 'dired-find-alternate-file 'disabled nil)
 
-;; Put backup files in a central place (stops <fn>~ files in current dir)
-(setq backup-directory-alist '(("." . "~/.emacs.d/backup")))
-(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
+  ;; Put backup files in a central place (stops <fn>~ files in current dir)
+  (setq backup-directory-alist '(("." . "~/.emacs.d/backup")))
+  (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
 
-;; Stop audible bell, have flashing mode line instead
-(setq visible-bell nil)
-(setq ring-bell-function (lambda ()
-   (invert-face 'mode-line)
-   (run-with-timer 0.1 nil 'invert-face 'mode-line)))
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(transient-mark-mode 1)
+  ;; Stop audible bell, have flashing mode line instead
+  (setq visible-bell nil)
+  (setq ring-bell-function (lambda ()
+     (invert-face 'mode-line)
+     (run-with-timer 0.1 nil 'invert-face 'mode-line)))
+  (tool-bar-mode -1)
+  (menu-bar-mode -1)
+  (transient-mark-mode 1)
 
-;; delete the region when typing, just like as we expect nowadays.
-(delete-selection-mode t)
+  ;; delete the region when typing, just like as we expect nowadays.
+  (delete-selection-mode t)
 
-;; Always show matching parenthesis
-(show-paren-mode t)
+  ;; Always show matching parenthesis
+  (show-paren-mode t)
 
-;; Put the column number next to the line number in the mode line
-(column-number-mode t)
+  ;; Put the column number next to the line number in the mode line
+  (column-number-mode t)
 
-;; Turn off the blinking cursor
-(blink-cursor-mode -1)
+  ;; Turn off the blinking cursor
+  (blink-cursor-mode -1)
 
-;; enable word wrap on all buffers
-(global-visual-line-mode)
-(diminish 'visual-line-mode)
+  ;; enable word wrap on all buffers
+  (global-visual-line-mode)
+  (diminish 'visual-line-mode)
 
-; had to move this to init.el because it is overwritten
-(set-cursor-color "Royal Blue") 
+  ; had to move this to init.el because it is overwritten
+  (set-cursor-color "Royal Blue") 
 
 #+END_SRC
 ** Revive - remember window layout within emacs
