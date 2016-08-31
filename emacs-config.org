@@ -35,7 +35,9 @@
         (start-process "mai-open-dir-process" nil "open" "-a" iterm-path ".")))
     (bind-key "C-c o t" 'open-dir-in-iterm)
     (custom-set-faces
-     '(default ((t (:height 140 :width normal :family "Inconsolata"))))))
+     '(default ((t (:height 120 :width normal :family "Monaco")))))
+    )
+
 #+END_SRC
 
 * TODO Packages (disperse contents)
