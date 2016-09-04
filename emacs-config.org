@@ -853,13 +853,51 @@ I don't currently really use this, so autostart is commented out. I imagine I wi
 ** Ido mode
 Ido mode is awesome, this is basically just activates it. I gave it its own heading as I want to expand on this in the future.
 
-#+BEGIN_SRC emacs-lisp 
-(ido-mode t)
-(setq ido-everywhere 1)
-(setq ido-enable-flex-matching t)
+Good source of info here: https://www.masteringemacs.org/article/introduction-to-ido-mode
 
-; not sure what this does, if problems, turn off
-(setq ido-create-new-buffer 'always)
+*Super awesome shortcuts you MUST learn*
+- M-f
+  - Searches all subdirectories for your file!!!
+- M-n/M-p
+  - Cycles through previous working directories [fn:1]
+- M-s
+  - Like M-d but all working directories instead
+
+[fn:1] The working directories are an automatically cached list. However, you can manipulate it through the =ido-work-directory-list= variable.
+
+*Other useful shortcuts*
+- C-d
+  - Open a dired buffer where you are
+- C-c
+  - toggles case sensitivity (ido-case-fold)
+- C-t
+  - matching using regular expressions
+
+#+BEGIN_SRC emacs-lisp 
+  (ido-mode t)
+  (setq ido-everywhere 1)
+  (setq ido-enable-flex-matching t)
+
+  ; not sure what this does, if problems, turn off
+  (setq ido-create-new-buffer 'always)
+
+  ; This is awesome!
+  (setq ido-file-extensions-order '(".org" ".py" ".sh"))
+
+  ; guesses if you are typing a filename and starts completing it (supposedly)
+  (setq ido-use-filename-at-point 'guess)
+
+#+END_SRC
+
+
+*** idomenu
+
+This searches for functions and org mode headings, in ido style you can find what you want quick.
+
+
+#+BEGIN_SRC emacs-lisp
+  (use-package idomenu
+    :ensure t)
 #+END_SRC
 ** Helm
 Trying this out instead of ido.
@@ -876,6 +914,21 @@ Update: the configuration needs work. e.g. I haven't got C-f integration with th
     (helm-mode 1)
     (global-set-key (kbd "C-c h") 'helm-mini)
     (provide 'helm-settings))
+#+END_SRC
+
+
+Helm has a bunch of stuff that ido-mode doesn't have, I'm adding some of that here. The idea being I can still use ido-mode for switching/opening/killing buffers as I currently do.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package helm
+    :ensure t
+    :config
+    (global-set-key (kbd "C-x m") 'helm-M-x)
+    (global-set-key (kbd "C-x r b" 'helm-bookmarks)))
+
+  ;; helm-show-kill-ring
+  ; This shows you your kill ring in a helm buffer
+
 #+END_SRC
 
 ** Files to preopen
