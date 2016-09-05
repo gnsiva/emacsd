@@ -12,3 +12,4 @@ emacs-config.el
 request/*
 tramp
 url/
+.org-id-locations
