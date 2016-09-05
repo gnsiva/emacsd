@@ -930,7 +930,17 @@ Helm has a bunch of stuff that ido-mode doesn't have, I'm adding some of that he
   ; This shows you your kill ring in a helm buffer
 
 #+END_SRC
+** Yasnippets
+#+BEGIN_SRC emacs-lisp
+  ;;;;;;;;;;;;;;;;
+  ; yasnippet
 
+  (use-package yasnippet
+    :ensure t
+    :config
+    (setq yas-snippet-dirs "~/.emacs.d/snippets")
+    (yas-global-mode 1))
+#+END_SRC
 ** Files to preopen
 #+BEGIN_SRC emacs-lisp
 (find-file "~/.emacs.d/emacs-config.org")
@@ -1120,10 +1130,14 @@ The documentation is here:
 https://tkf.github.io/emacs-ipython-notebook/
 
 #+BEGIN_SRC emacs-lisp
-    ;; Emacs ipython notebook
-    (use-package ein
-      :ensure t)
+  ;; Emacs ipython notebook
+  (use-package ein
+    :ensure t
+    :config
+    (define-key ein:notebook-mode-map "\C-c\C-d"
+                'ein:worksheet-delete-cell))
 #+END_SRC
+
 * TODO Java
 
 Not being run currently. There is some autocomplete configuration in here that should be moved out.
