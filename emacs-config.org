@@ -573,12 +573,17 @@ This is the list of languages I want to be able to use in org-mode code blocks.
 
 
 
-  ;;; Mac Os X stuff
+  ;;; Mac Os X stuff TODO - this stuff should be moved to mac customisations, it definitely is needed
   ;; mac cmd key as Meta (also fixes ubuntu to make meta key alt apparently)
-  (setq mac-option-key-is-meta nil
+  ;; (setq mac-option-key-is-meta nil
+  ;;       mac-command-key-is-meta t
+  ;;       mac-command-modifier 'meta
+  ;;       mac-option-modifier 'none)
+  (setq mac-option-key-is-meta t
         mac-command-key-is-meta t
         mac-command-modifier 'meta
         mac-option-modifier 'none)
+
   ; separate tutorial [[http://mcclanahoochie.com/blog/2011/08/remapping-macbook-pro-keys-for-emacs/][separate tutorial]] 
 
   ; Go to a specific line number in the file
@@ -599,81 +604,90 @@ This is the list of languages I want to be able to use in org-mode code blocks.
   (defalias 'qerep 'query-replace-regexp)
   (defalias 'esearch 'isearch-forward-regexp)
   (defalias 'ff 'find-file)
+
+
+
+
 #+END_SRC
 * Functions
 #+BEGIN_SRC emacs-lisp
-; Regexing for def
-(setq exp "def ")
-(defun python-functions ()
-  (interactive)
-  (goto-char 1)
-  (occur exp))
-(global-set-key "\M-+" 'python-functions)
+  ; Regexing for def
+  (setq exp "def ")
+  (defun python-functions ()
+    (interactive)
+    (goto-char 1)
+    (occur exp))
+  (global-set-key "\M-+" 'python-functions)
 
-; Insert (a proper) tab's worth of spaces
-;(defun add-four-spaces ()
-;; Use C-> and C-< when you finally work out how to get this to work
-  
+  ; Insert (a proper) tab's worth of spaces
+  ;(defun add-four-spaces ()
+  ;; Use C-> and C-< when you finally work out how to get this to work
+    
 
-;; Get the current computer name
-(defun insert-system-name()
-  (interactive)
-  "Get current system's name"
-  (insert (format "%s" system-name)))
-
-
-;; Hopefully get the OS type
-(defun insert-system-type()
-  (interactive)
-  "Get current system type"
-  (insert (format "%s" system-type)))
+  ;; Get the current computer name
+  (defun insert-system-name()
+    (interactive)
+    "Get current system's name"
+    (insert (format "%s" system-name)))
 
 
-;; Insert the path of the currently selected buffer
-(defun insert-buffer-file-name()
-  (interactive)
-  "Get current system type"
-  (insert (format "%s" (or (buffer-file-name) default-directory))))
+  ;; Hopefully get the OS type
+  (defun insert-system-type()
+    (interactive)
+    "Get current system type"
+    (insert (format "%s" system-type)))
 
 
-;; Word count (only works on the entire buffer)
-(defun wc () 
-  (interactive) 
-  (shell-command (concat "wc " buffer-file-name)))
-;; (global-set-key "\C-cw" 'wc)
+  ;; Insert the path of the currently selected buffer
+  (defun insert-buffer-file-name()
+    (interactive)
+    "Get current system type"
+    (insert (format "%s" (or (buffer-file-name) default-directory))))
 
 
-;; Doesn't currently work...
-; The suggestion came from:
-; http://emacs.1067599.n5.nabble.com/tramp-does-not-see-directory-changes-td242710.html
-; It worked the first time I tried the solution manually, but no longer does..
-; Pretty sure the function is doing what I want it to though
-(defun ido-tramp-refresh-file-list()
-  (interactive)
-  "Update ido completion cache when using tramp-mode."
-  (dired ".")
-  (revert-buffer)
-  (kill-this-buffer))
+  ;; Word count (only works on the entire buffer)
+  (defun wc () 
+    (interactive) 
+    (shell-command (concat "wc " buffer-file-name)))
+  ;; (global-set-key "\C-cw" 'wc)
 
 
-(defun athena()
-  (interactive)
-  "SSH into athena server with ansi-term as 'athena' buffer. If buffer already exists, switch to it."
-  (if (get-buffer "athena")
-      (switch-to-buffer "athena")
-      (progn
-          (ansi-term "/bin/bash")
-          (rename-buffer "athena")
-          (term-send-invisible "ssh -XY athena"))))
+  ;; Doesn't currently work...
+  ; The suggestion came from:
+  ; http://emacs.1067599.n5.nabble.com/tramp-does-not-see-directory-changes-td242710.html
+  ; It worked the first time I tried the solution manually, but no longer does..
+  ; Pretty sure the function is doing what I want it to though
+  (defun ido-tramp-refresh-file-list()
+    (interactive)
+    "Update ido completion cache when using tramp-mode."
+    (dired ".")
+    (revert-buffer)
+    (kill-this-buffer))
 
-(defun ipython-buffer()
-  (interactive)
-  "Create an IPython ansi-term buffer and rename it to 'ipython'. If buffer already exists, switch to it."
-  (if (get-buffer "ipython")
-      (switch-to-buffer "ipython")
-      (progn
-          (ansi-term "ipython")
-          (rename-buffer "ipython"))))
+
+  (defun athena()
+    (interactive)
+    "SSH into athena server with ansi-term as 'athena' buffer. If buffer already exists, switch to it."
+    (if (get-buffer "athena")
+        (switch-to-buffer "athena")
+        (progn
+            (ansi-term "/bin/bash")
+            (rename-buffer "athena")
+            (term-send-invisible "ssh -XY athena"))))
+
+  (defun ipython-buffer()
+    (interactive)
+    "Create an IPython ansi-term buffer and rename it to 'ipython'. If buffer already exists, switch to it."
+    (if (get-buffer "ipython")
+        (switch-to-buffer "ipython")
+        (progn
+            (ansi-term "ipython")
+            (rename-buffer "ipython"))))
+
+  (defun ll ()
+      "Run ls -lh in terminal"
+      (interactive) (shell-command "ls -lh"))
+
 #+END_SRC
 * Themes
 ** Inverted colours
@@ -1065,6 +1079,11 @@ Helm has a bunch of stuff that ido-mode doesn't have, I'm adding some of that he
 
 #+END_SRC
 ** Elpy configuration
+*Shortcuts to remember*
+- C-u C-x $
+  - Fold all functions
+  - Undo with C-x $
+
 *** Prerequisites
 #+BEGIN_SRC bash :tangle no
 sudo pip install jedi
