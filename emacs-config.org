@@ -37,7 +37,15 @@
     (custom-set-faces
      '(default ((t (:height 120 :width normal :family "Monaco")))))
     )
+#+END_SRC
 
+Handling the command and alt/option key behaviour
+
+#+BEGIN_SRC emacs-lisp
+(setq mac-option-key-is-meta t
+      mac-command-key-is-meta t
+      mac-command-modifier 'meta
+      mac-option-modifier 'meta)
 #+END_SRC
 
 * TODO Packages (disperse contents)
@@ -570,19 +578,6 @@ This is the list of languages I want to be able to use in org-mode code blocks.
   (global-set-key "\M-M" 'org-insert-todo-heading)
   (global-set-key "\M-p" 'org-up-element)
   (global-set-key "\M-n" 'org-forward-element)
-
-
-
-  ;;; Mac Os X stuff TODO - this stuff should be moved to mac customisations, it definitely is needed
-  ;; mac cmd key as Meta (also fixes ubuntu to make meta key alt apparently)
-  ;; (setq mac-option-key-is-meta nil
-  ;;       mac-command-key-is-meta t
-  ;;       mac-command-modifier 'meta
-  ;;       mac-option-modifier 'none)
-  (setq mac-option-key-is-meta t
-        mac-command-key-is-meta t
-        mac-command-modifier 'meta
-        mac-option-modifier 'none)
 
   ; separate tutorial [[http://mcclanahoochie.com/blog/2011/08/remapping-macbook-pro-keys-for-emacs/][separate tutorial]] 
 
