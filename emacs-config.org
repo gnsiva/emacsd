@@ -72,7 +72,7 @@ Installing this package was giving me problems with startup on the mac, so have 
 
   ;; make more packages available with the package installer
   (setq to-install
-        '(python-mode cl-lib yasnippet jedi auto-complete autopair find-file-in-repository exec-path-from-shell magit auctex htmlize org emacs-eclim  smartscan nxml git-commit))
+        '(python-mode cl-lib yasnippet jedi auto-complete autopair find-file-in-repository magit auctex htmlize org emacs-eclim  smartscan nxml git-commit))
 
   (mapc 'install-if-needed to-install)
 
