@@ -699,7 +699,7 @@ Not so much a theme, but seeing as the default colours are always spot on in ema
 ** Org mode working theme
 Temporarily added for the presentation
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp  :results output silent
   (use-package color-theme
     :ensure t
     :config
@@ -754,6 +754,7 @@ Temporarily added for the presentation
   ;;;; This is your old theme
   ;; (load-theme 'wombat t)
 #+END_SRC
+
 * Fonts
 Here I set the default font, and should be overwriting it when using the macbook pro (as it doesn't have the available font). Currently the desktop uses the same font as the default, but this may change in the future. The default works on most smaller Linux laptops as well and so will likely not change.
 
