@@ -684,6 +684,22 @@ This is the list of languages I want to be able to use in org-mode code blocks.
       (interactive) (shell-command "ls -lh"))
 
 #+END_SRC
+** C-w for kill word 
+C-w calls the function kill-region. However, when you have no region selected the function cuts between your current position and your last highlighted region.
+
+I am a big fan of the way the terminal handles C-w which is to kill the previous word. I was thinking can I have the best of both worlds, when no region is selected kill last word, otherwise kill region. Here is the code to achieve that.
+
+#+BEGIN_SRC emacs-lisp
+  (defun gns-kill-region ()
+    (interactive)
+    (if mark-active
+        (kill-region (mark) (point))
+      (backward-kill-word 1)))
+
+  (global-set-key "\C-w" 'gns-kill-region)
+
+#+END_SRC
+
 * Themes
 ** Inverted colours
 Not so much a theme, but seeing as the default colours are always spot on in emacs, the following just flips the colours in order to create a dark mode.
@@ -1320,6 +1336,9 @@ Undo-tree mode is getting turned on by something, I think it is related to evil-
   (undo-tree-mode 0)
 #+END_SRC
 * Stuff to investigate in the future
+** TODO change C-w behaviour to kill word when not in mark mode
+This variable tells you if you are in mark mode, so this is probably the starting point
+mark-active
 ** TODO org-download - drag image straight into org-mode from browser
 If this works it will be amazing, definitely try it
 https://github.com/abo-abo/org-download
