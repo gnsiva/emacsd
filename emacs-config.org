@@ -208,6 +208,9 @@ http://makble.com/how-to-toggle-evil-mode-in-emacs
 
   ; log time of completion for tasks
   (setq org-log-done t)
+
+  ;; Force UTF-8
+  (setq org-export-coding-system 'utf-8)
 #+END_SRC
 ** org-bable 
 *** setup
