@@ -13,3 +13,5 @@ request/*
 tramp
 url/
 .org-id-locations
+async-bytecomp.log
+_auth
