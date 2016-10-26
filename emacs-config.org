@@ -1119,6 +1119,11 @@ Helm has a bunch of stuff that ido-mode doesn't have, I'm adding some of that he
 - C-u C-x $
   - Fold all functions
   - Undo with C-x $
+- C-c C-e
+  - Refactor variable
+
+*Useful links*
+http://blog.lobraun.de/2016/03/01/elpy-cheat-sheet/
 
 *** Prerequisites
 #+BEGIN_SRC bash :tangle no
