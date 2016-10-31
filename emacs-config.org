@@ -1376,6 +1376,8 @@ mark-active
 ** TODO org-download - drag image straight into org-mode from browser
 If this works it will be amazing, definitely try it
 https://github.com/abo-abo/org-download
+** TODO Try running IPython instead of python in org mode code blocks
+https://github.com/gregsexton/ob-ipython
 ** TODO Occur upgrade
 An occur upgrade, occur looks for all lines matching a regex, this is supposed to be better.
 http://oremacs.com/2015/01/26/occur-dwim/
