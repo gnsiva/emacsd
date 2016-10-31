@@ -938,6 +938,9 @@ Good source of info here: https://www.masteringemacs.org/article/introduction-to
     :config
     (flx-ido-mode 1))
 
+
+  ;; This should stop emacs from automatically changing frames when switching buffers to a frame where that buffer is already shown.
+  (setq ido-default-buffer-method 'selected-window)
 #+END_SRC
 
 *** idomenu
