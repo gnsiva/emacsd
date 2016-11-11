@@ -1,4 +1,4 @@
-q#+TITLE: gnsiva's emacs configuration
+#+TITLE: gnsiva's emacs configuration
 
 * My information
 
