@@ -1,4 +1,4 @@
-q#+TITLE: gnsiva's emacs configuration
+#+TITLE: gnsiva's emacs configuration
 
 * My information
 
@@ -889,6 +889,37 @@ I don't currently really use this, so autostart is commented out. I imagine I wi
 ;; (if (file-exists-p "~/.revive.el")
 ;;   (resume))
 #+END_SRC
+** Helm
+Trying this out instead of ido.
+Update: the configuration needs work. e.g. I haven't got C-f integration with the below config.
+
+#+BEGIN_SRC emacs-lisp :tangle no
+  (use-package helm
+    :ensure t)
+
+  (use-package helm-descbinds
+    :ensure t
+    :config
+    (fset 'describe-bindings 'helm-descbinds)
+    (helm-mode 1)
+    (global-set-key (kbd "C-c h") 'helm-mini)
+    (provide 'helm-settings))
+#+END_SRC
+
+
+Helm has a bunch of stuff that ido-mode doesn't have, I'm adding some of that here. The idea being I can still use ido-mode for switching/opening/killing buffers as I currently do.
+
+#+BEGIN_SRC emacs-lisp  :tangle no
+  (use-package helm
+    :ensure t
+    :config
+    (global-set-key (kbd "C-x m") 'helm-M-x)
+    (global-set-key (kbd "C-x r b" 'helm-bookmarks)))
+
+  ;; helm-show-kill-ring
+  ; This shows you your kill ring in a helm buffer
+
+#+END_SRC
 ** Ido mode
 Ido mode is awesome, this is basically just activates it. I gave it its own heading as I want to expand on this in the future.
 
@@ -943,6 +974,9 @@ Good source of info here: https://www.masteringemacs.org/article/introduction-to
   (setq ido-default-buffer-method 'selected-window)
 #+END_SRC
 
+#+RESULTS:
+: selected-window
+
 *** idomenu
 
 This searches for functions and org mode headings, in ido style you can find what you want quick.
@@ -952,37 +986,7 @@ This searches for functions and org mode headings, in ido style you can find wha
   (use-package idomenu
     :ensure t)
 #+END_SRC
-** Helm
-Trying this out instead of ido.
-Update: the configuration needs work. e.g. I haven't got C-f integration with the below config.
 
-#+BEGIN_SRC emacs-lisp :tangle no
-  (use-package helm
-    :ensure t)
-
-  (use-package helm-descbinds
-    :ensure t
-    :config
-    (fset 'describe-bindings 'helm-descbinds)
-    (helm-mode 1)
-    (global-set-key (kbd "C-c h") 'helm-mini)
-    (provide 'helm-settings))
-#+END_SRC
-
-
-Helm has a bunch of stuff that ido-mode doesn't have, I'm adding some of that here. The idea being I can still use ido-mode for switching/opening/killing buffers as I currently do.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package helm
-    :ensure t
-    :config
-    (global-set-key (kbd "C-x m") 'helm-M-x)
-    (global-set-key (kbd "C-x r b" 'helm-bookmarks)))
-
-  ;; helm-show-kill-ring
-  ; This shows you your kill ring in a helm buffer
-
-#+END_SRC
 ** Yasnippets
 #+BEGIN_SRC emacs-lisp
   ;;;;;;;;;;;;;;;;
