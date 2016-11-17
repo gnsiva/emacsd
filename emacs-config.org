@@ -222,21 +222,22 @@ http://makble.com/how-to-toggle-evil-mode-in-emacs
 
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 #+END_SRC
+
 *** languages
 
 This is the list of languages I want to be able to use in org-mode code blocks.
 
 #+BEGIN_SRC emacs-lisp
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((python . t)
-   (js . t)
-   (C . t)
-   (org . t)
-   (java . t)
-   (R . t)
-   (sql . t)
-   (sh . t)))
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((python . t)
+     (js . t)
+     (C . t)
+     (org . t)
+     (java . t)
+     (R . t)
+     (sql . t)
+     (sh . t)))
 #+END_SRC
 ** Org export
 *** setup
@@ -893,57 +894,37 @@ I don't currently really use this, so autostart is commented out. I imagine I wi
 Trying this out instead of ido.
 Update: the configuration needs work. e.g. I haven't got C-f integration with the below config.
 
-#+BEGIN_SRC emacs-lisp :tangle no
-  (use-package helm
-    :ensure t)
+#+BEGIN_SRC emacs-lisp 
+  ;; (use-package helm
+  ;;   :ensure t)
 
-  (use-package helm-descbinds
-    :ensure t
-    :config
-    (fset 'describe-bindings 'helm-descbinds)
-    (helm-mode 1)
-    (global-set-key (kbd "C-c h") 'helm-mini)
-    (provide 'helm-settings))
+  ;; (use-package helm-descbinds
+  ;;   :ensure t
+  ;;   :config
+  ;;   (fset 'describe-bindings 'helm-descbinds)
+  ;;   (helm-mode 1)
+  ;;   (global-set-key (kbd "C-c h") 'helm-mini)
+  ;;   (provide 'helm-settings))
 #+END_SRC
 
 
 Helm has a bunch of stuff that ido-mode doesn't have, I'm adding some of that here. The idea being I can still use ido-mode for switching/opening/killing buffers as I currently do.
 
-#+BEGIN_SRC emacs-lisp  :tangle no
-  (use-package helm
-    :ensure t
-    :config
-    (global-set-key (kbd "C-x m") 'helm-M-x)
-    (global-set-key (kbd "C-x r b" 'helm-bookmarks)))
+#+BEGIN_SRC emacs-lisp 
+  ;; (use-package helm
+  ;;   :ensure t
+  ;;   :config
+  ;;   (global-set-key (kbd "C-x m") 'helm-M-x)
+  ;;   (global-set-key (kbd "C-x r b" 'helm-bookmarks)))
 
-  ;; helm-show-kill-ring
-  ; This shows you your kill ring in a helm buffer
+  ;; ;; helm-show-kill-ring
+  ;; ; This shows you your kill ring in a helm buffer
 
 #+END_SRC
+
 ** Ido mode
-Ido mode is awesome, this is basically just activates it. I gave it its own heading as I want to expand on this in the future.
 
-Good source of info here: https://www.masteringemacs.org/article/introduction-to-ido-mode
-
-*Super awesome shortcuts you MUST learn*
-- M-f
-  - Searches all subdirectories for your file!!!
-- M-n/M-p
-  - Cycles through previous working directories [fn:1]
-- M-s
-  - Like M-d but all working directories instead
-
-[fn:1] The working directories are an automatically cached list. However, you can manipulate it through the =ido-work-directory-list= variable.
-
-*Other useful shortcuts*
-- C-d
-  - Open a dired buffer where you are
-- C-c
-  - toggles case sensitivity (ido-case-fold)
-- C-t
-  - matching using regular expressions
-
-#+BEGIN_SRC emacs-lisp 
+#+BEGIN_SRC emacs-lisp
   (ido-mode t)
   (setq ido-everywhere 1)
   (setq ido-enable-flex-matching t)
@@ -974,8 +955,27 @@ Good source of info here: https://www.masteringemacs.org/article/introduction-to
   (setq ido-default-buffer-method 'selected-window)
 #+END_SRC
 
-#+RESULTS:
-: selected-window
+Ido mode is awesome, this is basically just activates it. I gave it its own heading as I want to expand on this in the future.
+
+Good source of info here: https://www.masteringemacs.org/article/introduction-to-ido-mode
+
+*Super awesome shortcuts you MUST learn*
+- M-f
+  - Searches all subdirectories for your file!!!
+- M-n/M-p
+  - Cycles through previous working directories [fn:1]
+- M-s
+  - Like M-d but all working directories instead
+
+[fn:1] The working directories are an automatically cached list. However, you can manipulate it through the =ido-work-directory-list= variable.
+
+*Other useful shortcuts*
+- C-d
+  - Open a dired buffer where you are
+- C-c
+  - toggles case sensitivity (ido-case-fold)
+- C-t
+  - matching using regular expressions
 
 *** idomenu
 
@@ -986,6 +986,8 @@ This searches for functions and org mode headings, in ido style you can find wha
   (use-package idomenu
     :ensure t)
 #+END_SRC
+
+#+RESULTS:
 
 ** Yasnippets
 #+BEGIN_SRC emacs-lisp
@@ -1364,6 +1366,7 @@ Not being run currently. There is some autocomplete configuration in here that s
    (put 'downcase-region 'disabled nil)
    (put 'upcase-region 'disabled nil)
   (desktop-save-mode 1)
+
 #+END_SRC
 * Final commands
 This is where to place commands that are overwritten somewhere in the configuration file and you haven't yet worked out how to stop that.
