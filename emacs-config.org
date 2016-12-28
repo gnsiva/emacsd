@@ -793,6 +793,10 @@ Here I set the default font, and should be overwriting it when using the macbook
 ;(if (equal system-name "lettie")
 ;    (set-frame-font "Ubuntu Mono-11" nil t))
 
+;; i3 laptop
+(if (equal system-name "artemis")
+    (set-frame-font "DejaVu Sans Mono 12" nil t))
+
 ;; Ubuntu Mate Desktop
 (if (equal system-name "anake")
     (set-frame-font "Ubuntu Mono-11" nil t))
