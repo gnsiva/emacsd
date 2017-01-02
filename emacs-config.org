@@ -795,7 +795,7 @@ Here I set the default font, and should be overwriting it when using the macbook
 
 ;; i3 laptop
 (if (equal system-name "artemis")
-    (set-frame-font "DejaVu Sans Mono 12" nil t))
+    (set-frame-font "DejaVu Sans Mono 11" nil t))
 
 ;; Ubuntu Mate Desktop
 (if (equal system-name "anake")
@@ -993,6 +993,11 @@ This searches for functions and org mode headings, in ido style you can find wha
 
 #+RESULTS:
 
+** Dockerfile mode
+#+BEGIN_SRC emacs-lisp
+(use-package dockerfile-mode
+  :ensure t)
+#+END_SRC
 ** Yasnippets
 #+BEGIN_SRC emacs-lisp
   ;;;;;;;;;;;;;;;;
