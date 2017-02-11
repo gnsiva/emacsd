@@ -228,6 +228,9 @@ http://makble.com/how-to-toggle-evil-mode-in-emacs
 This is the list of languages I want to be able to use in org-mode code blocks.
 
 #+BEGIN_SRC emacs-lisp
+  (use-package php-mode
+    :ensure t)
+
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((python . t)
@@ -238,6 +241,8 @@ This is the list of languages I want to be able to use in org-mode code blocks.
      (R . t)
      (sql . t)
      (sh . t)))
+;     (php . t)))
+
 #+END_SRC
 ** Org export
 *** setup
@@ -733,7 +738,7 @@ Temporarily added for the presentation
     :config
     (color-theme-initialize))
 
-  ;; (use-package zenburn-theme ;@@
+  ;; (use-package zenburn-theme ;@@@
   ;;   :ensure t
   ;;   :config
   ;;   (load-theme 'zenburn t))
@@ -792,6 +797,10 @@ Here I set the default font, and should be overwriting it when using the macbook
 ; Bev Macbook Pro
 ;(if (equal system-name "lettie")
 ;    (set-frame-font "Ubuntu Mono-11" nil t))
+
+;; i3 laptop
+(if (equal system-name "artemis")
+    (set-frame-font "DejaVu Sans Mono 11" nil t))
 
 ;; Ubuntu Mate Desktop
 (if (equal system-name "anake")
@@ -996,6 +1005,11 @@ This searches for functions and org mode headings, in ido style you can find wha
 
 #+RESULTS:
 
+** Dockerfile mode
+#+BEGIN_SRC emacs-lisp
+(use-package dockerfile-mode
+  :ensure t)
+#+END_SRC
 ** Yasnippets
 #+BEGIN_SRC emacs-lisp
   ;;;;;;;;;;;;;;;;
@@ -1411,4 +1425,5 @@ I previously added the following, not entirely sure what it does, so am going to
 (put 'dired-find-alternate-file 'disabled nil)
 #+END_SRC
 
-
+** TODO Wrap region
+https://www.youtube.com/watch?v=9SWAKPF0fHE
