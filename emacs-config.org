@@ -733,7 +733,7 @@ Temporarily added for the presentation
     :config
     (color-theme-initialize))
 
-  ;; (use-package zenburn-theme
+  ;; (use-package zenburn-theme ;@@
   ;;   :ensure t
   ;;   :config
   ;;   (load-theme 'zenburn t))
@@ -796,7 +796,14 @@ Here I set the default font, and should be overwriting it when using the macbook
 ;; Ubuntu Mate Desktop
 (if (equal system-name "anake")
     (set-frame-font "Ubuntu Mono-11" nil t))
+
+;; Work man
+(if (equal system-name "emmett")
+    (set-frame-font "Ubuntu Mono-10" nil t))
 #+END_SRC
+
+#+RESULTS:
+
 * General
 ** Unix integration
 I want Emacs to take over as my go to terminal as well as editor. Anything that aids in this should go in here.
