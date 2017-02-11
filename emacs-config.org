@@ -228,6 +228,9 @@ http://makble.com/how-to-toggle-evil-mode-in-emacs
 This is the list of languages I want to be able to use in org-mode code blocks.
 
 #+BEGIN_SRC emacs-lisp
+  (use-package php-mode
+    :ensure t)
+
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((python . t)
@@ -238,6 +241,8 @@ This is the list of languages I want to be able to use in org-mode code blocks.
      (R . t)
      (sql . t)
      (sh . t)))
+;     (php . t)))
+
 #+END_SRC
 ** Org export
 *** setup
@@ -733,7 +738,7 @@ Temporarily added for the presentation
     :config
     (color-theme-initialize))
 
-  ;; (use-package zenburn-theme
+  ;; (use-package zenburn-theme ;@@@
   ;;   :ensure t
   ;;   :config
   ;;   (load-theme 'zenburn t))
@@ -1404,4 +1409,5 @@ I previously added the following, not entirely sure what it does, so am going to
 (put 'dired-find-alternate-file 'disabled nil)
 #+END_SRC
 
-
+** TODO Wrap region
+https://www.youtube.com/watch?v=9SWAKPF0fHE
