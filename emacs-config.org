@@ -1021,6 +1021,13 @@ This searches for functions and org mode headings, in ido style you can find wha
     (setq yas-snippet-dirs "~/.emacs.d/snippets")
     (yas-global-mode 1))
 #+END_SRC
+** Docker
+#+BEGIN_SRC emacs-lisp
+  (use-package dockerfile-mode
+    :ensure t
+    :config
+    (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode)))
+#+END_SRC
 ** Files to preopen
 #+BEGIN_SRC emacs-lisp
 (find-file "~/.emacs.d/emacs-config.org")
