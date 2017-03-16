@@ -228,8 +228,8 @@ http://makble.com/how-to-toggle-evil-mode-in-emacs
 This is the list of languages I want to be able to use in org-mode code blocks.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package php-mode
-    :ensure t)
+  ;(use-package php-mode
+  ;  :ensure t)
 
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -241,7 +241,7 @@ This is the list of languages I want to be able to use in org-mode code blocks.
      (R . t)
      (sql . t)
      (sh . t)))
-;     (php . t)))
+  ;   (php . t)))
 
 #+END_SRC
 ** Org export
@@ -1227,7 +1227,7 @@ Commands cheat sheet
 The documentation is here:
 https://tkf.github.io/emacs-ipython-notebook/
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   ;; Emacs ipython notebook
   (use-package ein
     :ensure t
