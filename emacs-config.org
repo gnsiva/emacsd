@@ -716,6 +716,30 @@ I am a big fan of the way the terminal handles C-w which is to kill the previous
   (global-set-key "\C-w" 'gns-kill-region)
 
 #+END_SRC
+* Fonts
+Here I set the default font, and should be overwriting it when using the macbook pro (as it doesn't have the available font). Currently the desktop uses the same font as the default, but this may change in the future. The default works on most smaller Linux laptops as well and so will likely not change.
+
+#+BEGIN_SRC emacs-lisp
+(set-frame-font "Ubuntu Mono-11" nil t)
+
+; Bev Macbook Pro
+;(if (equal system-name "lettie")
+;    (set-frame-font "Ubuntu Mono-11" nil t))
+
+;; i3 laptop
+(if (equal system-name "artemis")
+    (set-frame-font "DejaVu Sans Mono 11" nil t))
+
+;; Ubuntu Mate Desktop
+(if (equal system-name "anake")
+    (set-frame-font "Ubuntu Mono-11" nil t))
+
+;; Work man
+(if (equal system-name "emmett")
+    (set-frame-font "Ubuntu Mono-10" nil t))
+#+END_SRC
+
+#+RESULTS:
 
 * Themes
 ** Inverted colours
@@ -787,32 +811,6 @@ Temporarily added for the presentation
   ;;;; This is your old theme
   ;; (load-theme 'wombat t)
 #+END_SRC
-
-* Fonts
-Here I set the default font, and should be overwriting it when using the macbook pro (as it doesn't have the available font). Currently the desktop uses the same font as the default, but this may change in the future. The default works on most smaller Linux laptops as well and so will likely not change.
-
-#+BEGIN_SRC emacs-lisp
-(set-frame-font "Ubuntu Mono-11" nil t)
-
-; Bev Macbook Pro
-;(if (equal system-name "lettie")
-;    (set-frame-font "Ubuntu Mono-11" nil t))
-
-;; i3 laptop
-(if (equal system-name "artemis")
-    (set-frame-font "DejaVu Sans Mono 11" nil t))
-
-;; Ubuntu Mate Desktop
-(if (equal system-name "anake")
-    (set-frame-font "Ubuntu Mono-11" nil t))
-
-;; Work man
-(if (equal system-name "emmett")
-    (set-frame-font "Ubuntu Mono-10" nil t))
-#+END_SRC
-
-#+RESULTS:
-
 * General
 ** Unix integration
 I want Emacs to take over as my go to terminal as well as editor. Anything that aids in this should go in here.
@@ -1190,7 +1188,9 @@ Elpy can use rope or jedi as the backend for analysis of python sources. To set 
     :ensure t
     :config
     (elpy-enable)
-    (elpy-use-ipython)
+    (setq python-shell-interpreter "ipython"
+          python-shell-interpreter-args "--simple-prompt")
+    ;;(elpy-use-ipython) ;; problems with characterset
     (setq ansi-color-for-comint-mode t) ;; needed to fix weird formatting issues with ipython
     (setq elpy-rpc-backend "jedi")
     (local-set-key (kbd "C-?") 'help-command)
@@ -1208,6 +1208,9 @@ Elpy can use rope or jedi as the backend for analysis of python sources. To set 
     (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
     (add-hook 'elpy-mode-hook 'flycheck-mode))
 #+END_SRC
+
+#+RESULTS:
+| flycheck-mode |
 
 *** jupyter notebook integration
 From here you can connect to jupyter, even the AWS ones!
@@ -1234,6 +1237,22 @@ https://tkf.github.io/emacs-ipython-notebook/
     :config
     (define-key ein:notebook-mode-map "\C-c\C-d"
                 'ein:worksheet-delete-cell))
+#+END_SRC
+
+*** virtualenv
+To use virtualenv's you need to set the $WORKON_HOME variable, but as I set that in my .bashrc, the desktop shortcut seems to ignore it.
+A better alternative might be to try to alter the .desktop file, seeing as that will fix the issue for all environment variables.
+
+=$ pyenv-workon= to pick which one you want, there is also =elpy-config=
+
+https://www.reddit.com/r/Python/comments/4w5d4e/psa_ipython_5_will_break_emacs_heres_how_to_fix_it/
+
+#+BEGIN_SRC emacs-lisp
+  (if (equal system-name "anake")
+      (setenv "WORKON_HOME" "/home/gns/.virt_env"))
+
+  (if (equal system-name "emmett")
+      (setenv "WORKON_HOME" "/home/gns/.virt_env"))
 #+END_SRC
 
 * TODO Java
