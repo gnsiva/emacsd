@@ -182,7 +182,9 @@ http://makble.com/how-to-toggle-evil-mode-in-emacs
 (require 'ox-html)
 (require 'ob-tangle)
 (require 'ox-latex)
+(require 'ox-md nil t)
 #+END_SRC
+
 ** packages
 #+BEGIN_SRC emacs-lisp
   (setq org-latex-packages-alist 
@@ -240,10 +242,12 @@ This is the list of languages I want to be able to use in org-mode code blocks.
      (java . t)
      (R . t)
      (sql . t)
-     (sh . t)))
-  ;   (php . t)))
-
+     (sh . t)
+     ))
 #+END_SRC
+
+#+RESULTS:
+
 ** Org export
 *** setup
 #+BEGIN_SRC emacs-lisp
@@ -696,9 +700,9 @@ Might be worth putting in a Github issue for it though.
             (ansi-term "ipython")
             (rename-buffer "ipython"))))
 
-  (defun ll ()
-      "Run ls -lh in terminal"
-      (interactive) (shell-command "ls -lh"))
+  ;; (defun ll ()
+  ;;     "Run ls -lh in terminal"
+  ;;     (interactive) (shell-command "ls -lh"))
 
 #+END_SRC
 ** C-w for kill word 
@@ -1045,6 +1049,28 @@ This searches for functions and org mode headings, in ido style you can find wha
     (exec-path-from-shell-copy-env "PYTHONPATH")
     (exec-path-from-shell-copy-env "PATH"))
 #+END_SRC
+* ZSH
+Info taken from here:
+https://stackoverflow.com/questions/20558402/open-zsh-scripts-in-sh-mode-in-emacs
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'auto-mode-alist '("\\.zsh\\'" . sh-mode))
+  (add-to-list 'auto-mode-alist '("\\.zsh-theme\\'" . sh-mode))
+
+  (add-hook 'sh-mode-hook
+            (lambda ()
+              (if (string-match "\\.zsh$" buffer-file-name)
+                  (sh-set-shell "zsh"))))
+
+  (add-hook 'sh-mode-hook
+            (lambda ()
+              (if (string-match "\\.zsh-theme$" buffer-file-name)
+                  (sh-set-shell "zsh"))))
+#+END_SRC
+
+#+RESULTS:
+| (lambda nil (if (string-match \.zsh-theme$ buffer-file-name) (sh-set-shell zsh))) | (lambda nil (if (string-match \.zsh$ buffer-file-name) (sh-set-shell zsh))) | sh-electric-here-document-mode |
+
 * Python
 ** Old configuration
 #+BEGIN_SRC emacs-lisp :tangle no
